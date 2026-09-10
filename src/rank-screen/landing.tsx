@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import Navbar from "@/navbar/navbar";
+import Navbar from "@/components/navbar/navbar";
 import { HeroSection } from "@/landingPageSections/Hero";
 import { TrustStrip } from "@/landingPageSections/trustStrip";
 import { CTA } from "@/landingPageSections/CTA";
