@@ -1,4 +1,4 @@
-import { Logo } from "@/components/Shell";
+import { Logo } from "@/components/rankShellPages";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 

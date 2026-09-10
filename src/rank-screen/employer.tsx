@@ -3,7 +3,6 @@ import {
   Users,
   CheckCircle2,
   GripVertical,
-  Filter,
   Bookmark,
   Plus,
   ChevronRight,

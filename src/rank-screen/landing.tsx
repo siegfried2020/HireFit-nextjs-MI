@@ -1,11 +1,5 @@
-import { useState, useEffect, useRef, type ReactNode } from "react";
-import {
-  ArrowRight, ChevronDown, Menu, X, CheckCircle2,
-  FileText, Mic, ClipboardCheck, Layers, Award,
-  Shield, Eye, Users, TrendingUp, Zap, Building2,
-  GraduationCap,
-} from "lucide-react";
-import { Logo } from "../components/Shell";
+import { useState, useEffect } from "react";
+
 import Navbar from "@/navbar/navbar";
 import { HeroSection } from "@/landingPageSections/Hero";
 import { TrustStrip } from "@/landingPageSections/trustStrip";
@@ -20,12 +14,6 @@ import { MatchingSection } from "@/landingPageSections/Matching&Readiness";
 import { EvidenceSection } from "@/landingPageSections/Evidence";
 import { JourneysSection } from "@/landingPageSections/Journeys";
 import { TrustSection } from "@/landingPageSections/Trust";
-
-
-
-
-
-
 
 
 

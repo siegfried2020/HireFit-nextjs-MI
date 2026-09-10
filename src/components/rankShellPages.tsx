@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState, type ComponentType, type ReactNode, type SVGProps } from "react";
 import {
   ChevronsUpDown,
   Check,
@@ -20,7 +20,11 @@ import {
   X,
   Gavel,
   Settings,
+  type LucideIcon,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 /* Custom icon: connected-nodes / skill-network — replaces Dna for Talent DNA nav item */
 function TalentDnaIcon({ className, strokeWidth = 2 }: { className?: string; strokeWidth?: number }) {
@@ -49,11 +53,14 @@ function TalentDnaIcon({ className, strokeWidth = 2 }: { className?: string; str
     </svg>
   );
 }
-import { cx } from "./primitives";
 
 export type Portal = "candidate" | "employer" | "ops";
 
-type NavItem = { id: string; label: string; icon: any };
+type NavItem = {
+  id: string;
+  label: string;
+  icon: LucideIcon | ComponentType<SVGProps<SVGSVGElement> & { strokeWidth?: number }>;
+};
 
 export const PORTALS: Record<
   Portal,
@@ -114,7 +121,7 @@ export function Logo({ size = 34, invert = false }: { size?: number; invert?: bo
       alt="HireFit"
       height={size}
       style={{ height: size, width: "auto", display: "block" }}
-      className={cx("select-none", invert && "brightness-0 invert")}
+      className={cn("select-none", invert && "brightness-0 invert")}
       draggable={false}
     />
   );
@@ -131,9 +138,12 @@ export type Session = {
 
 function OrgBadge({ name }: { name: string }) {
   return (
-    <div className="grid size-5 shrink-0 place-items-center rounded-[5px] bg-brand-500 text-[9px] font-bold text-white">
+    <Badge
+      variant="default"
+      className="size-5 rounded-[5px] border-0 bg-brand-500 p-0 text-[9px] font-bold text-white hover:bg-brand-500"
+    >
       {name.slice(0, 2).toUpperCase()}
-    </div>
+    </Badge>
   );
 }
 
@@ -144,17 +154,18 @@ function WorkspaceSwitcher({ session }: { session: Session }) {
 
   return (
     <div className="relative flex items-center">
-      <button
+      <Button
+        variant="ghost"
         onClick={() => multi && setOpen((o) => !o)}
-        className={cx(
-          "flex items-center gap-1.5 rounded-[8px] px-2.5 py-1.5 text-[13px] font-semibold text-ink transition-colors",
-          multi ? "hover:bg-line-soft cursor-pointer" : "cursor-default",
+        className={cn(
+          "h-auto gap-1.5 rounded-[8px] px-2.5 py-1.5 text-[13px] font-semibold text-ink",
+          multi ? "cursor-pointer hover:bg-line-soft" : "cursor-default hover:bg-transparent",
         )}
       >
         <OrgBadge name={current} />
         <span className="max-w-[160px] truncate">{current}</span>
         {multi && <ChevronsUpDown className="size-3.5 shrink-0 text-faint" />}
-      </button>
+      </Button>
       {open && multi && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
@@ -163,23 +174,27 @@ function WorkspaceSwitcher({ session }: { session: Session }) {
               Your organizations
             </div>
             {session.orgs!.map((o) => (
-              <button
+              <Button
                 key={o}
+                variant="ghost"
                 onClick={() => { setCurrent(o); setOpen(false); }}
-                className={cx(
-                  "flex w-full items-center gap-2.5 rounded-[8px] px-2.5 py-2 text-left text-[13px] transition-colors hover:bg-line-soft",
+                className={cn(
+                  "h-auto w-full justify-start gap-2.5 rounded-[8px] px-2.5 py-2 text-left text-[13px] hover:bg-line-soft",
                   o === current && "bg-brand-50",
                 )}
               >
                 <OrgBadge name={o} />
                 <span className="min-w-0 flex-1 truncate font-semibold text-ink">{o}</span>
                 {o === current && <Check className="size-4 shrink-0 text-brand-500" />}
-              </button>
+              </Button>
             ))}
             <div className="mx-1.5 my-1 border-t border-line" />
-            <button className="flex w-full items-center gap-2 rounded-[8px] px-2.5 py-2 text-left text-[12px] font-medium text-muted transition-colors hover:bg-line-soft hover:text-ink">
+            <Button
+              variant="ghost"
+              className="h-auto w-full justify-start gap-2 rounded-[8px] px-2.5 py-2 text-left text-[12px] font-medium text-muted hover:bg-line-soft hover:text-ink"
+            >
               Manage organization settings
-            </button>
+            </Button>
           </div>
         </>
       )}
@@ -209,9 +224,14 @@ function SidebarBody({
       {/* Fixed top: logo */}
       <div className="shrink-0 px-5 pb-3 pt-5">
         {onGoHome ? (
-          <button onClick={onGoHome} className="block rounded-[6px] transition-opacity hover:opacity-75" title="Back to home">
+          <Button
+            variant="ghost"
+            onClick={onGoHome}
+            className="h-auto rounded-[6px] p-0 hover:bg-transparent hover:opacity-75"
+            title="Back to home"
+          >
             <Logo size={46} />
-          </button>
+          </Button>
         ) : (
           <Logo size={46} />
         )}
@@ -223,24 +243,27 @@ function SidebarBody({
           const Icon = item.icon;
           const active = route === item.id;
           return (
-            <button
+            <Button
               key={item.id}
+              variant="ghost"
               onClick={() => {
                 onRoute(item.id);
                 onNavigate?.();
               }}
-              className={cx(
-                "group mb-1 flex w-full items-center gap-3 rounded-[9px] px-3 py-2.5 text-[14px] font-medium transition-all duration-150",
-                active ? "bg-brand-50 text-brand-700" : "text-ink-soft hover:bg-line-soft hover:text-ink",
+              className={cn(
+                "group mb-1 h-auto w-full justify-start gap-3 rounded-[9px] px-3 py-2.5 text-[14px] font-medium",
+                active
+                  ? "bg-brand-50 text-brand-700 hover:bg-brand-50 hover:text-brand-700"
+                  : "text-ink-soft hover:bg-line-soft hover:text-ink",
               )}
             >
               <Icon
-                className={cx("size-[19px] shrink-0", active ? "text-brand-500" : "text-faint group-hover:text-muted")}
+                className={cn("size-[19px] shrink-0", active ? "text-brand-500" : "text-faint group-hover:text-muted")}
                 strokeWidth={1.9}
               />
               {item.label}
               {active && <span className="ml-auto h-4 w-1 rounded-full bg-brand-500" />}
-            </button>
+            </Button>
           );
         })}
       </nav>
@@ -255,13 +278,15 @@ function SidebarBody({
             <div className="truncate text-[13px] font-semibold text-ink">{session.account}</div>
             <div className="truncate text-[11px] text-faint">{session.meta}</div>
           </div>
-          <button
+          <Button
+            variant="ghost"
+            size="icon-sm"
             onClick={onSignOut}
             title="Sign out"
-            className="grid size-8 shrink-0 place-items-center rounded-[8px] text-faint transition-colors hover:bg-line-soft hover:text-ink"
+            className="text-faint hover:bg-line-soft hover:text-ink"
           >
             <LogOut className="size-4" />
-          </button>
+          </Button>
         </div>
       </div>
     </>
@@ -310,12 +335,14 @@ export function Shell({
         <div className="fixed inset-0 z-40 lg:hidden">
           <div className="absolute inset-0 bg-ink/40" onClick={() => setDrawer(false)} />
           <aside className="tie-slide-in absolute inset-y-0 left-0 flex w-[264px] flex-col border-r border-line bg-surface shadow-[var(--shadow-pop)]">
-            <button
+            <Button
+              variant="ghost"
+              size="icon-sm"
               onClick={() => setDrawer(false)}
-              className="absolute right-3 top-4 grid size-8 place-items-center rounded-[8px] text-faint hover:bg-line-soft hover:text-ink"
+              className="absolute right-3 top-4 text-faint hover:bg-line-soft hover:text-ink"
             >
               <X className="size-4.5" />
-            </button>
+            </Button>
             <SidebarBody
               session={session}
               nav={p.nav}
@@ -332,13 +359,15 @@ export function Shell({
       {/* Main — offset by the sidebar width, scrolls with the page normally */}
       <div className="flex min-h-screen min-w-0 flex-col lg:pl-[248px]">
         <header className="sticky top-0 z-20 flex h-16 items-center gap-4 border-b border-line bg-surface/85 px-6 backdrop-blur-md max-lg:px-4">
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setDrawer(true)}
-            className="hidden max-lg:grid size-9 shrink-0 place-items-center rounded-[9px] text-ink-soft transition-colors hover:bg-line-soft"
+            className="hidden size-9 text-ink-soft hover:bg-line-soft max-lg:inline-flex"
             title="Open menu"
           >
             <Menu className="size-5" />
-          </button>
+          </Button>
           <div className="flex min-w-0 flex-1 items-center gap-1">
             <WorkspaceSwitcher session={session} />
             <span className="shrink-0 text-line" aria-hidden>/</span>
@@ -354,10 +383,14 @@ export function Shell({
             </span>
           </div>
           {actions}
-          <button className="relative grid size-9 place-items-center rounded-[9px] text-ink-soft transition-colors hover:bg-line-soft">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative size-9 text-ink-soft hover:bg-line-soft"
+          >
             <Bell className="size-[18px]" />
             <span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#b5443a] ring-2 ring-surface" />
-          </button>
+          </Button>
         </header>
         <main className="min-w-0 flex-1">
           <div key={session.portal + route} className="tie-fade mx-auto max-w-[1200px] px-6 py-7 max-lg:px-4">

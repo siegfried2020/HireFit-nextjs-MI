@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
+import { SessionProvider } from "@/context/SessionContext";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -29,9 +31,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakarta.variable} ${ibmPlexMono.variable} h-full antialiased`}
+      className={cn(
+        "h-full antialiased",
+        plusJakarta.variable,
+        ibmPlexMono.variable,
+      )}
     >
-      <body className="min-h-full font-sans">{children}</body>
+      <body className="min-h-full font-sans antialiased">
+        <SessionProvider>{children}</SessionProvider>
+      </body>
     </html>
   );
 }

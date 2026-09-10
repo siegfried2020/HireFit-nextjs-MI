@@ -1,9 +1,11 @@
-import { useState, type ReactNode } from "react";
+"use client";
+
+import { useState, type ComponentType, type ReactNode, type SVGProps } from "react";
+import { useRouter } from "next/navigation";
 import {
   User,
   Users,
   Building2,
-  GraduationCap,
   ShieldCheck,
   ArrowRight,
   ArrowLeft,
@@ -14,15 +16,16 @@ import {
   Lock,
   BadgeCheck,
   KeyRound,
+  type LucideIcon,
 } from "lucide-react";
 import { Button, cx } from "./primitives";
-import { Logo, type Portal, type Session } from "./Shell";
+import { Logo, type Portal, type Session } from "./rankShellPages";
 
 /* --------------------------------------------------------------- role meta */
 
 const ROLES: Record<
   Portal,
-  { title: string; subtitle: string; desc: string; icon: any; signup: boolean }
+  { title: string; subtitle: string; desc: string; icon: LucideIcon; signup: boolean }
 > = {
   candidate: {
     title: "Candidate",
@@ -65,7 +68,7 @@ function Field({
 }: {
   label: string;
   type?: string;
-  icon?: any;
+  icon?: LucideIcon | ComponentType<SVGProps<SVGSVGElement>>;
   placeholder?: string;
   hint?: string;
   optional?: boolean;
@@ -228,90 +231,49 @@ function Steps({ steps, current }: { steps: string[]; current: number }) {
 
 /* ================================================================= ROOT */
 
-type Step =
-  | { k: "role" }
-  | { k: "orgtype" }
-  | { k: "login"; role: Portal }
-  | { k: "signup"; role: Portal; i: number }
-  | { k: "forgot"; role: Portal }
-  | { k: "reset"; role: Portal }
-  | { k: "invite" };
-
-export function Auth({ onComplete, onGoHome }: { onComplete: (s: Session) => void; onGoHome?: () => void }) {
-  const [step, setStep] = useState<Step>({ k: "role" });
-
-  const enter = (role: Portal) => {
-    const base = DEFAULT_SESSION[role];
-    onComplete({ portal: role, ...base });
+function useAuthNav() {
+  const router = useRouter();
+  return {
+    goHome: () => router.push("/"),
+    goRoleSelect: () => router.push("/auth"),
+    goOrgSelect: () => router.push("/auth/organization"),
+    goPortal: (role: Portal) => router.push(`/auth/${role}`),
+    goPortalApp: (role: Portal) => {
+      const path =
+        role === "ops" ? "/portal/admin" : `/portal/${role}`;
+      router.push(path);
+    },
   };
+}
 
-  // Where "back" from a login/signup screen should return
-  const loginBack = (role: Portal) =>
-    role === "employer" || role === "ops"
-      ? setStep({ k: "orgtype" })
-      : setStep({ k: "role" });
+export function sessionFor(role: Portal): Session {
+  return { portal: role, ...DEFAULT_SESSION[role] };
+}
 
-  const afterLogin = (role: Portal) => {
-    enter(role);
-  };
+export { useAuthNav };
 
-  switch (step.k) {
-    case "role":
-      return (
-        <RoleSelection
-          onCandidate={() => setStep({ k: "login", role: "candidate" })}
-          onOrganization={() => setStep({ k: "orgtype" })}
-          onGoHome={onGoHome}
-        />
-      );
+/** Role picker — Candidate vs Organization */
+export function AuthRoleSelection() {
+  const { goHome, goPortal, goOrgSelect } = useAuthNav();
+  return (
+    <RoleSelection
+      onCandidate={() => goPortal("candidate")}
+      onOrganization={goOrgSelect}
+      onGoHome={goHome}
+    />
+  );
+}
 
-    case "orgtype":
-      return (
-        <OrgTypeSelection
-          onBack={() => setStep({ k: "role" })}
-          onSelect={(role) => setStep({ k: "login", role })}
-          onGoHome={onGoHome}
-        />
-      );
-
-    case "login":
-      return (
-        <Login
-          role={step.role}
-          onBack={() => loginBack(step.role)}
-          onForgot={() => setStep({ k: "forgot", role: step.role })}
-          onSignup={() => setStep({ k: "signup", role: step.role, i: 0 })}
-          onInvite={() => setStep({ k: "invite" })}
-          onSuccess={() => afterLogin(step.role)}
-          onGoHome={onGoHome}
-        />
-      );
-
-    case "forgot":
-      return <Forgot role={step.role} onBack={() => setStep({ k: "login", role: step.role })} onSent={() => setStep({ k: "reset", role: step.role })} onGoHome={onGoHome} />;
-
-    case "reset":
-      return <Reset onDone={() => setStep({ k: "login", role: step.role })} onGoHome={onGoHome} />;
-
-    case "invite":
-      return <InviteAccept onBack={() => setStep({ k: "login", role: "ops" })} onAccept={() => enter("ops")} onGoHome={onGoHome} />;
-
-    case "signup":
-      return (
-        <Signup
-          role={step.role}
-          index={step.i}
-          setIndex={(i) => setStep({ k: "signup", role: step.role, i })}
-          onBackToRole={() => loginBack(step.role)}
-          onLogin={() => setStep({ k: "login", role: step.role })}
-          onComplete={() => enter(step.role)}
-          onGoHome={onGoHome}
-        />
-      );
-
-    default:
-      return null;
-  }
+/** Organization type picker — Employer vs Ops */
+export function AuthOrgTypeSelection() {
+  const { goHome, goRoleSelect, goPortal } = useAuthNav();
+  return (
+    <OrgTypeSelection
+      onBack={goRoleSelect}
+      onSelect={goPortal}
+      onGoHome={goHome}
+    />
+  );
 }
 
 /* ============================================================ ROLE SELECTION */
@@ -323,7 +285,7 @@ function SelectCard({
   desc,
   onClick,
 }: {
-  icon: any;
+  icon: LucideIcon | ComponentType<SVGProps<SVGSVGElement>>;
   title: string;
   subtitle: string;
   desc: string;
@@ -446,7 +408,7 @@ function OrgTypeSelection({ onBack, onSelect, onGoHome }: { onBack: () => void; 
 
 /* ============================================================ LOGIN */
 
-function Login({
+export function Login({
   role,
   onBack,
   onForgot,
@@ -459,7 +421,7 @@ function Login({
   onBack: () => void;
   onForgot: () => void;
   onSignup: () => void;
-  onInvite: () => void;
+  onInvite?: () => void;
   onSuccess: () => void;
   onGoHome?: () => void;
 }) {
@@ -526,7 +488,7 @@ function Login({
 
 /* ============================================================ FORGOT / RESET */
 
-function Forgot({ role, onBack, onSent, onGoHome }: { role: Portal; onBack: () => void; onSent: () => void; onGoHome?: () => void }) {
+export function Forgot({ onBack, onSent, onGoHome }: { role: Portal; onBack: () => void; onSent: () => void; onGoHome?: () => void }) {
   return (
     <AuthLayout onGoHome={onGoHome}>
       <button onClick={onBack} className="mb-6 flex items-center gap-1.5 text-[13px] font-semibold text-muted hover:text-ink">
@@ -547,7 +509,7 @@ function Forgot({ role, onBack, onSent, onGoHome }: { role: Portal; onBack: () =
   );
 }
 
-function Reset({ onDone, onGoHome }: { onDone: () => void; onGoHome?: () => void }) {
+export function Reset({ onDone, onGoHome }: { onDone: () => void; onGoHome?: () => void }) {
   return (
     <AuthLayout onGoHome={onGoHome}>
       <div className="grid size-11 place-items-center rounded-[12px] bg-brand-50 text-brand-600">
@@ -566,7 +528,7 @@ function Reset({ onDone, onGoHome }: { onDone: () => void; onGoHome?: () => void
 
 /* ============================================================ INVITE ACCEPT */
 
-function InviteAccept({ onBack, onAccept, onGoHome }: { onBack: () => void; onAccept: () => void; onGoHome?: () => void }) {
+export function InviteAccept({ onBack, onAccept, onGoHome }: { onBack: () => void; onAccept: () => void; onGoHome?: () => void }) {
   return (
     <AuthLayout onGoHome={onGoHome}>
       <button onClick={onBack} className="mb-6 flex items-center gap-1.5 text-[13px] font-semibold text-muted hover:text-ink">
@@ -604,7 +566,7 @@ const SIGNUP_STEPS: Record<Portal, string[]> = {
   ops: ["Account", "Organization", "Verify", "Done"],
 };
 
-function Signup({
+export function Signup({
   role,
   index,
   setIndex,
@@ -941,7 +903,7 @@ function OpsSignup({ index, next, onComplete, onLogin }: { index: number; next: 
   }
 }
 
-function WorkspaceOption({ active, onClick, title, desc, icon: Icon, badge }: { active: boolean; onClick: () => void; title: string; desc: string; icon: any; badge?: string }) {
+function WorkspaceOption({ active, onClick, title, desc, icon: Icon, badge }: { active: boolean; onClick: () => void; title: string; desc: string; icon: LucideIcon; badge?: string }) {
   return (
     <button
       onClick={onClick}

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ButtonHTMLAttributes, ElementType, HTMLAttributes, ReactNode } from "react";
 
 /* ---------------------------------------------------------------- utilities */
 
@@ -175,8 +175,8 @@ export function Card({
 }: {
   children: ReactNode;
   className?: string;
-  as?: any;
-} & Record<string, any>) {
+  as?: ElementType;
+} & HTMLAttributes<HTMLElement>) {
   return (
     <As
       className={cx(
@@ -226,7 +226,7 @@ export function Button({
   children: ReactNode;
   variant?: "primary" | "secondary" | "ghost" | "quiet";
   size?: "sm" | "md";
-} & Record<string, any>) {
+} & ButtonHTMLAttributes<HTMLButtonElement>) {
   const base =
     "inline-flex items-center justify-center gap-2 rounded-[9px] font-semibold tracking-tight transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas disabled:opacity-50";
   const sizes = { sm: "h-8 px-3 text-[13px]", md: "h-10 px-4 text-[14px]" };

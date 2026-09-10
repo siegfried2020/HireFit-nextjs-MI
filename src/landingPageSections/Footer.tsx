@@ -1,4 +1,4 @@
-import { Logo } from "@/components/Shell";
+import { Logo } from "@/components/rankShellPages";
 
 /* ─── footer ─── */
 export function LandingFooter() {
