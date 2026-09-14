@@ -29,7 +29,7 @@ export function ProcessSection() {
             </h2>
           </Reveal>
   
-          <div className="hidden gap-0 md:grid md:grid-cols-6">
+          <div className="hidden gap-0 lg:grid lg:grid-cols-6">
             {STEPS.map((s, i) => (
               <button key={s.num} onClick={() => setActive(i)}
                 className={`group relative border-t-[3px] pt-7 pr-6 text-left transition-all duration-300 ${
@@ -48,7 +48,7 @@ export function ProcessSection() {
             ))}
           </div>
   
-          <div className="space-y-0 md:hidden">
+          <div className="space-y-0 lg:hidden">
             {STEPS.map((s, i) => (
               <div key={s.num}
                 className={`border-l-[3px] py-5 pl-6 ${

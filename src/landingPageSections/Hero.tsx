@@ -38,7 +38,7 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
   
           {/* headline */}
           <h1
-            className="mt-6 text-[clamp(28px,4.2vw,70px)] sm:text-[clamp(40px,5.8vw,78px)] font-extrabold leading-[1.04] tracking-[-0.025em] text-white"
+            className="mt-6 text-[clamp(28px,5.8vw,78px)] font-extrabold leading-[1.04] tracking-[-0.025em] text-white"
             style={{ animation: "lp-fade-up 0.7s 200ms cubic-bezier(0.22,1,0.36,1) both" }}>
             Hire for capability,<br />
             <span style={{ color: "#aea0f3" }}>not just credentials.</span>
@@ -46,7 +46,7 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
   
           {/* sub-copy */}
           <p
-            className="mx-auto mt-5 max-w-[480px] text-[14px] sm:text-[17px] leading-[1.65] text-white/48"
+            className="mx-auto mt-5 max-w-[480px] text-[12px] sm:text-[17px] leading-[1.65] text-white/48"
             style={{ animation: "lp-fade-up 0.7s 340ms cubic-bezier(0.22,1,0.36,1) both" }}>
             Real skills. Verified evidence. Structured role requirements.
             Clear readiness. Better hiring decisions.

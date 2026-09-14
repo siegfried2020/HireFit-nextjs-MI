@@ -5,10 +5,8 @@ import {
     ChevronRight,
     Search as SearchIcon,
     Sparkles,
-    ClipboardPaste,
     Upload,
     Link2,
-    LayoutTemplate,
     Rocket,
     ArrowLeft,
     Trash2,
@@ -38,10 +36,10 @@ import { PageHead, REQ_LEVELS, STATUS_LABEL, STATUS_TONE } from "../EmployerShar
 
 const METHODS = [
     { id: "ai", label: "Write with AI", icon: Sparkles },
-    { id: "paste", label: "Paste JD", icon: ClipboardPaste },
+    // { id: "paste", label: "Paste JD", icon: ClipboardPaste },
     { id: "file", label: "Upload file", icon: Upload },
     { id: "url", label: "Import URL", icon: Link2 },
-    { id: "template", label: "Start from template", icon: LayoutTemplate },
+    // { id: "template", label: "Start from template", icon: LayoutTemplate },
 ];
 
 
@@ -227,14 +225,14 @@ export function CreateRole({
   const [phase, setPhase] = useState<"form" | "parsing" | "review">("form");
   const [proposed, setProposed] = useState<{ skill: Skill; keep: boolean }[]>([]);
 
-  const extracts = method === "ai" || method === "paste" || method === "file" || method === "url";
+  const extracts = method === "ai" || method === "file" || method === "url";
 
   const submit = () => {
-    if (method === "template") {
-      emp.createRole(title, family, TEMPLATE_SKILLS);
-      onCreated();
-      return;
-    }
+    // if (method === "template") {
+    //   emp.createRole(title, family, TEMPLATE_SKILLS);
+    //   onCreated();
+    //   return;
+    // }
     if (!extracts) {
       emp.createRole(title, family, []);
       onCreated();
@@ -374,9 +372,9 @@ export function CreateRole({
           ) : undefined
         }
       />
-      <Card className="mx-auto max-w-2xl p-6">
+      <Card className="mx-auto max-w-xl p-6">
         <div className="text-[12px] font-semibold uppercase tracking-wide text-faint">Creation method</div>
-        <div className="mt-2.5 grid grid-cols-5 gap-2 max-md:grid-cols-2">
+        <div className="mt-2.5 grid grid-cols-3 gap-1 md:gap-2">
           {METHODS.map((m) => {
             const on = method === m.id;
             return (
@@ -417,7 +415,7 @@ export function CreateRole({
               className="w-full rounded-[9px] border border-line bg-surface px-3 py-2.5 text-[14px] text-ink outline-none placeholder:text-faint focus:border-brand-400"
             />
           </label>
-          {(method === "paste" || method === "file" || method === "url") && (
+          {( method === "file" || method === "url") && (
             <label className="block">
               <span className="mb-1 block text-[13px] font-semibold text-ink">
                 {method === "url" ? "Job posting URL" : "Job description"}
@@ -430,9 +428,7 @@ export function CreateRole({
             </label>
           )}
           <p className="text-[12.5px] text-muted">
-            {method === "template"
-              ? "Starts from a QA Automation template you can fully edit."
-              : method === "ai"
+            {method === "ai"
                 ? "HireFit proposes skills for your review — nothing is committed until you confirm."
                 : "Skills are extracted for your review — nothing is committed until you confirm."}
           </p>
@@ -445,8 +441,8 @@ export function CreateRole({
             </Button>
           )}
           <Button onClick={submit} disabled={!title.trim()}>
-            {method === "template" ? <Plus className="size-4" /> : <ChevronRight className="size-4" />}
-            {method === "template" ? "Create role" : "Parse & review"}
+            {"Parse & review"}
+            {<ChevronRight className="size-4" />}
           </Button>
         </div>
       </Card>

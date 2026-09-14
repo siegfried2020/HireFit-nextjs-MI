@@ -36,13 +36,16 @@ export function JobDNASection() {
                     { skill: "CI/CD",             weight: "Preferred", level: "Intermediate" },
                     { skill: "Performance",       weight: "Preferred", level: "Intermediate" },
                   ].map(({ skill, weight, level }) => (
-                    <div key={skill} className="flex items-center gap-3 rounded-[10px] bg-white/[0.06] px-4 py-2.5">
+                    
+                    <div key={skill} className="flex items-start gap-3 rounded-[10px] 
+                    bg-white/[0.06] px-4 py-2.5 sm:items-center max-sm:flex-col max-sm:gap-1">
                       <div className="flex-1 text-[13px] font-semibold text-white/85">{skill}</div>
-                      <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${
+                      <span className={`self-start rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${
                         weight === "Critical" ? "bg-brand-500/30 text-brand-200" :
                         weight === "Required" ? "bg-white/10 text-white/60" :
                         "bg-white/5 text-white/40"
                       }`}>{weight}</span>
+                      
                       <span className="text-[12px] text-brand-300/70">{level}</span>
                     </div>
                   ))}
@@ -57,12 +60,12 @@ export function JobDNASection() {
                 </span>
               </Reveal>
               <Reveal delay={80}>
-                <h2 className="mt-4 text-[clamp(30px,4vw,52px)] font-extrabold leading-[1.08] tracking-[-0.025em] text-white">
+                <h2 className="mt-4 text-[clamp(26px,4vw,52px)] font-extrabold leading-[1.08] tracking-[-0.025em] text-white">
                   Turn any role description into a precision hiring spec.
                 </h2>
               </Reveal>
               <Reveal delay={160}>
-                <p className="mt-6 text-[17px] leading-relaxed text-white/50">
+                <p className="mt-6 text-[14px] sm:text-[17px] leading-relaxed text-white/50">
                   HireFit converts a raw job description into structured Job DNA —
                   weighted skill requirements, evidence thresholds, assessment rubrics,
                   and readiness criteria. So every hire is measured consistently.
@@ -77,7 +80,7 @@ export function JobDNASection() {
                 ].map(([title, body], i) => (
                   <Reveal key={title as string} delay={220 + i * 60}>
                     <div className="flex items-start gap-4">
-                      <div className="mt-0.5 size-1.5 shrink-0 rounded-full bg-brand-400" />
+                      <div className="mt-1.5 size-2.5 shrink-0 rounded-full bg-brand-400" />
                       <div>
                         <div className="text-[15px] font-semibold text-white/85">{title}</div>
                         <div className="mt-0.5 text-[13px] text-white/40">{body}</div>

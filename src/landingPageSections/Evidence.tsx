@@ -59,7 +59,7 @@ export function EvidenceSection() {
                 ))}
   
                 <Reveal delay={400} from="right">
-                  <div className="mt-6 ml-auto w-fit rounded-[14px] border border-brand-200 bg-brand-50 px-6 py-4 text-center">
+                  <div className="justify-center w-fit rounded-[14px] border border-brand-200 bg-brand-50 px-6 py-4 text-center">
                     <div className="text-[11px] font-bold uppercase tracking-[2px] text-brand-500">Evidence Engine</div>
                     <div className="mt-2 text-[28px] font-extrabold tracking-tight text-brand-900">Talent DNA</div>
                     <div className="mt-1 text-[12px] text-brand-500">Verified · Weighted · Explainable</div>

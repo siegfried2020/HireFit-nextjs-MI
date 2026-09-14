@@ -8,7 +8,7 @@ import {
   Signup,
   sessionFor,
   useAuthNav,
-} from "@/components/RoleSelection";
+} from "@/app/auth/RoleSelection";
 import { useSession } from "@/context/SessionContext";
 
 type Step =

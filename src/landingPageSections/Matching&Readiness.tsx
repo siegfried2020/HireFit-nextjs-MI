@@ -19,15 +19,15 @@ export function MatchingSection() {
   
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px]">
             <Reveal from="left" className="h-full">
-              <div className="flex h-full flex-col rounded-[18px] border border-line bg-white p-7 shadow-[var(--shadow-card)]">
-                <div className="mb-6 flex items-start justify-between gap-4">
-                  <div>
+              <div className="flex h-full flex-col overflow-hidden rounded-[18px] border border-line bg-white p-5 shadow-[var(--shadow-card)] sm:p-7">
+                <div className="mb-6 flex items-start justify-between gap-4 max-sm:flex-col max-sm:gap-3">
+                  <div className="min-w-0">
                     <div className="text-[11px] font-bold uppercase tracking-[2px] text-faint">Senior QA Engineer</div>
-                    <div className="mt-0.5 text-[22px] font-extrabold leading-snug tracking-tight text-ink">Skill Readiness Report</div>
+                    <div className="mt-0.5 text-[20px] font-extrabold leading-snug tracking-tight text-ink sm:text-[22px]">Skill Readiness Report</div>
                   </div>
-                  <div className="shrink-0 text-right">
+                  <div className="shrink-0 text-right max-sm:self-start max-sm:text-left">
                     <div className="text-[11px] font-bold uppercase tracking-[2px] text-faint">Overall Ready</div>
-                    <div className="mt-0.5 text-[40px] font-extrabold leading-[1] tracking-[-0.04em] text-brand-500">
+                    <div className="mt-0.5 text-[36px] font-extrabold leading-[1] tracking-[-0.04em] text-brand-500 sm:text-[40px]">
                       82<span className="text-[20px] font-bold text-brand-300">%</span>
                     </div>
                   </div>
@@ -49,17 +49,25 @@ export function MatchingSection() {
                       : status === "partial" ? "text-brand-700 bg-brand-50"
                       : "text-[#b3721a] bg-[#fbf1e2]";
                     return (
-                      <div key={skill} className="flex items-center gap-4">
-                        <div className="w-40 shrink-0 text-[14px] font-semibold text-ink">{skill}</div>
-                        <div className="flex-1">
-                          <div className="h-1.5 overflow-hidden rounded-full bg-line">
-                            <div className={`h-full rounded-full ${bar} transition-all duration-1000`}
-                              style={{ width: `${score}%` }} />
+                      <div key={skill} className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                        <div className="flex min-w-0 items-center justify-between gap-2 sm:contents">
+                          <div className="min-w-0 truncate text-[14px] font-semibold text-ink sm:w-40 sm:shrink-0">
+                            {skill}
+                          </div>
+                          <div className={`shrink-0 self-start rounded-full px-2.5 py-0.5 text-[11px] font-semibold sm:order-last ${badge}`}>
+                            {evidence} {evidence === 1 ? "source" : "sources"}
                           </div>
                         </div>
-                        <div className="w-10 shrink-0 text-right text-[13px] font-bold text-ink">{score}%</div>
-                        <div className={`shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${badge}`}>
-                          {evidence} {evidence === 1 ? "source" : "sources"}
+                        <div className="flex min-w-0 flex-1 items-center gap-3">
+                          <div className="min-w-0 flex-1">
+                            <div className="h-1.5 overflow-hidden rounded-full bg-line">
+                              <div
+                                className={`h-full rounded-full ${bar} transition-all duration-1000`}
+                                style={{ width: `${score}%` }}
+                              />
+                            </div>
+                          </div>
+                          <div className="w-10 shrink-0 text-right text-[13px] font-bold text-ink">{score}%</div>
                         </div>
                       </div>
                     );

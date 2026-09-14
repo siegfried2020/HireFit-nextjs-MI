@@ -18,8 +18,8 @@ import {
   KeyRound,
   type LucideIcon,
 } from "lucide-react";
-import { Button, cx } from "./primitives";
-import { Logo, type Portal, type Session } from "./rankShellPages";
+import { Button, cx } from "../../components/primitives";
+import { Logo, type Portal, type Session } from "../../components/rankShellPages";
 
 /* --------------------------------------------------------------- role meta */
 
