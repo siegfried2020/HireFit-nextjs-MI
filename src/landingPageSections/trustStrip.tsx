@@ -14,7 +14,7 @@ export function TrustStrip() {
         <div className="grid grid-cols-2 gap-y-10 md:grid-cols-4">
           {items.map((item, i) => (
             <Reveal key={item.stat} delay={i * 80} className="text-center">
-              <div className="text-[28px] font-extrabold tracking-tight text-ink">
+              <div className="text-[20px] sm:text-[28px] font-extrabold tracking-tight text-ink">
                 {item.stat}
               </div>
               <div className="mt-1 text-[13px] font-medium text-muted">

@@ -38,7 +38,7 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
   
           {/* headline */}
           <h1
-            className="mt-6 text-[clamp(40px,5.8vw,78px)] font-extrabold leading-[1.04] tracking-[-0.025em] text-white"
+            className="mt-6 text-[clamp(28px,4.2vw,70px)] sm:text-[clamp(40px,5.8vw,78px)] font-extrabold leading-[1.04] tracking-[-0.025em] text-white"
             style={{ animation: "lp-fade-up 0.7s 200ms cubic-bezier(0.22,1,0.36,1) both" }}>
             Hire for capability,<br />
             <span style={{ color: "#aea0f3" }}>not just credentials.</span>
@@ -46,7 +46,7 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
   
           {/* sub-copy */}
           <p
-            className="mx-auto mt-5 max-w-[480px] text-[17px] leading-[1.65] text-white/48"
+            className="mx-auto mt-5 max-w-[480px] text-[14px] sm:text-[17px] leading-[1.65] text-white/48"
             style={{ animation: "lp-fade-up 0.7s 340ms cubic-bezier(0.22,1,0.36,1) both" }}>
             Real skills. Verified evidence. Structured role requirements.
             Clear readiness. Better hiring decisions.
@@ -57,15 +57,18 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
             className="mt-8 flex flex-wrap items-center justify-center gap-3"
             style={{ animation: "lp-fade-up 0.7s 460ms cubic-bezier(0.22,1,0.36,1) both" }}>
             <button onClick={onGetStarted}
-              className="group flex items-center gap-2 rounded-[11px] bg-brand-500 px-6 py-3 text-[15px] font-semibold text-white
+              className="group flex items-center justify-center gap-1 sm:gap-2 rounded-[11px] bg-brand-500 
+                px-4 py-2 sm:px-6 sm:py-3 
+                text-[12px] sm:text-[15px] font-semibold text-white
                 shadow-[0_2px_16px_rgba(79,70,229,0.5)]
                 transition-all duration-200
                 hover:bg-brand-600 hover:shadow-[0_4px_24px_rgba(79,70,229,0.6)] hover:gap-2.5">
               Get Started <ArrowRight className="size-4 transition-all duration-200" />
             </button>
             <a href="#platform"
-              className="flex items-center gap-1.5 rounded-[11px] border border-white/14 px-6 py-3
-                text-[15px] font-semibold text-white/65
+              className="flex items-center gap-1.5 rounded-[11px] border border-white/14
+                px-4 py-2 sm:px-6 sm:py-3 text-[12px] sm:text-[15px] 
+                font-semibold text-white/65
                 transition-all duration-200
                 hover:border-white/28 hover:text-white/90">
               Explore the Platform

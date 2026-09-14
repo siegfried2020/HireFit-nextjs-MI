@@ -25,7 +25,7 @@ const NAV_LINKS = [
           : "bg-transparent"
       }`}>
         {/* three-column layout: logo | nav | actions */}
-        <div className="mx-auto grid h-[68px] max-w-[1280px] grid-cols-[1fr_auto_1fr] items-center px-8">
+        <div className="mx-auto flex justify-between h-[68px] max-w-[1280px] lg:grid-cols-[1fr_auto_1fr] items-center px-8">
   
           {/* left — logo */}
           <div className="flex items-center">

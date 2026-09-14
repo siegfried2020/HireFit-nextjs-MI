@@ -7,7 +7,6 @@ export function RoleReadiness() {
   
     const roleOptions = [
       {
-        title: "QA Automation Engineer",
         readiness: 82,
         conf: "High" as const,
         rows: [
@@ -22,22 +21,22 @@ export function RoleReadiness() {
         oneSkillBoost: "+6%",
         oneSkillDetail: "Basic → Intermediate",
       },
-      {
-        title: "SDET — Platform Engineering",
-        readiness: 71,
-        conf: "Medium" as const,
-        rows: [
-          { skill: "API Testing",        req: "Advanced",     cand: "Advanced",     ev: 4, contrib: 20, gap: 0 },
-          { skill: "CI/CD Pipelines",    req: "Advanced",     cand: "Intermediate", ev: 2, contrib: 18, gap: 1 },
-          { skill: "Playwright / E2E",   req: "Intermediate", cand: "Advanced",     ev: 3, contrib: 15, gap: 0 },
-          { skill: "Performance Testing",req: "Advanced",     cand: "Basic",        ev: 1, contrib: 13, gap: 2 },
-          { skill: "Test Strategy",      req: "Intermediate", cand: "Intermediate", ev: 1, contrib: 10, gap: 0 },
-          { skill: "SQL",                req: "Basic",        cand: "Intermediate", ev: 2, contrib: 7,  gap: 0 },
-        ],
-        oneSkillAway: "Improve CI/CD Pipelines",
-        oneSkillBoost: "+8%",
-        oneSkillDetail: "Intermediate → Advanced",
-      },
+      // {
+      //   title: "SDET — Platform Engineering",
+      //   readiness: 71,
+      //   conf: "Medium" as const,
+      //   rows: [
+      //     { skill: "API Testing",        req: "Advanced",     cand: "Advanced",     ev: 4, contrib: 20, gap: 0 },
+      //     { skill: "CI/CD Pipelines",    req: "Advanced",     cand: "Intermediate", ev: 2, contrib: 18, gap: 1 },
+      //     { skill: "Playwright / E2E",   req: "Intermediate", cand: "Advanced",     ev: 3, contrib: 15, gap: 0 },
+      //     { skill: "Performance Testing",req: "Advanced",     cand: "Basic",        ev: 1, contrib: 13, gap: 2 },
+      //     { skill: "Test Strategy",      req: "Intermediate", cand: "Intermediate", ev: 1, contrib: 10, gap: 0 },
+      //     { skill: "SQL",                req: "Basic",        cand: "Intermediate", ev: 2, contrib: 7,  gap: 0 },
+      //   ],
+      //   oneSkillAway: "Improve CI/CD Pipelines",
+      //   oneSkillBoost: "+8%",
+      //   oneSkillDetail: "Intermediate → Advanced",
+      // },
     ];
   
     const role = roleOptions[roleIdx];
@@ -49,7 +48,7 @@ export function RoleReadiness() {
             Role readiness &middot; explainable score
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            {roleOptions.map((r, i) => (
+            {/* {roleOptions.map((r, i) => (
               <button
                 key={r.title}
                 onClick={() => setRoleIdx(i)}
@@ -61,11 +60,11 @@ export function RoleReadiness() {
                 )}
               >
                 {r.title}
-              </button>
-            ))}
-            <button className="rounded-[10px] border border-dashed border-line px-4 py-2 text-[14px] font-medium text-faint hover:border-brand-300 hover:text-brand-600">
+              </button> 
+            ))} */}
+            {/* <button className="rounded-[10px] border border-dashed border-line px-4 py-2 text-[14px] font-medium text-faint hover:border-brand-300 hover:text-brand-600">
               + Add target role
-            </button>
+            </button> */}
           </div>
         </div>
   

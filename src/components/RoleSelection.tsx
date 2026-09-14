@@ -561,7 +561,7 @@ export function InviteAccept({ onBack, onAccept, onGoHome }: { onBack: () => voi
 /* ============================================================ SIGNUP WIZARDS */
 
 const SIGNUP_STEPS: Record<Portal, string[]> = {
-  candidate: ["Account", "Verify", "Consent", "Identity", "Goal", "Done"],
+  candidate: ["Account", "Verify", "Consent", "Goal", "Done"],
   employer: ["Account", "Company", "Verify", "Workspace", "Done"],
   ops: ["Account", "Organization", "Verify", "Done"],
 };
@@ -682,7 +682,6 @@ function DoneStep({ role, onComplete }: { role: Portal; onComplete: () => void }
 /* ---- candidate ---- */
 function CandidateSignup({ index, next, onComplete, onLogin }: { index: number; next: () => void; onComplete: () => void; onLogin: () => void }) {
   const [contact, setContact] = useState("Email");
-  const [nafath, setNafath] = useState(false);
   switch (index) {
     case 0:
       return (
@@ -725,34 +724,6 @@ function CandidateSignup({ index, next, onComplete, onLogin }: { index: number; 
         </div>
       );
     case 3:
-      return (
-        <div>
-          <StepHead title="Verify your identity" sub="Optional — a verified identity strengthens the trust of your Talent Passport." />
-          <button
-            onClick={() => setNafath(true)}
-            className={cx(
-              "flex w-full items-center gap-4 rounded-[13px] border p-4 text-left transition-all",
-              nafath ? "border-brand-500 bg-brand-50 ring-1 ring-brand-500" : "border-line bg-surface hover:border-brand-200",
-            )}
-          >
-            <div className="grid size-11 place-items-center rounded-[11px] bg-brand-800 text-white font-bold">نفاذ</div>
-            <div className="min-w-0 flex-1">
-              <div className="text-[14.5px] font-bold text-ink">Verify with Nafath</div>
-              <div className="text-[13px] text-muted">Confirm your national identity securely via the Nafath app.</div>
-            </div>
-            {nafath ? <Check className="size-5 text-brand-500" /> : <ArrowRight className="size-4 text-faint" />}
-          </button>
-          <div className="mt-3 rounded-[10px] border border-line bg-canvas px-3.5 py-3 text-[12.5px] text-muted">
-            <BadgeCheck className="mr-1.5 inline size-4 text-[#2e7d5b]" />
-            Identity data is used only for verification and is never shared with employers.
-          </div>
-          <div className="mt-6 flex gap-3">
-            <Button variant="secondary" onClick={next} className="flex-1">Skip for now</Button>
-            <Button onClick={next} className="flex-1">{nafath ? "Continue" : "Verify"} <ArrowRight className="size-4" /></Button>
-          </div>
-        </div>
-      );
-    case 4:
       return (
         <div>
           <StepHead title="What are you working toward?" sub="We&rsquo;ll tailor your readiness, gaps, and job matches to this goal." />

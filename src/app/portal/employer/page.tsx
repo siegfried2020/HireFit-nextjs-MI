@@ -2,15 +2,13 @@
 
 import { useState } from "react";
 import { Shell, PORTALS } from "@/components/rankShellPages";
-import {
-  TalentSearch,
-  CandidateDetail,
-} from "@/rank-screen/employerScreen/employer";
 import { EmployerProvider, useEmployer } from "@/rank-screen/employerScreen/employerStore";
 import { usePortalGate } from "../usePortalGate";
 import { EmployerDashboard } from "@/rank-screen/employerScreen/EmployerDashboard";
 import { JobDNA } from "@/rank-screen/employerScreen/JobDNA/page";
 import { Pipeline } from "@/rank-screen/employerScreen/Pipeline/page";
+import { TalentSearch } from "@/rank-screen/employerScreen/TalentSearch/page";
+import { CandidateDetail } from "@/rank-screen/employerScreen/candidateDetail/page";
 
 const LABELS: Record<string, string> = {
   dashboard: "Dashboard",
