@@ -24,17 +24,36 @@ export function Integrity() {
         <div className="space-y-3">
           {cases.map((c, i) => (
             <Card key={c.id} className="overflow-hidden">
-              <button onClick={() => setOpen(open === i ? -1 : i)} className="flex w-full items-center gap-4 px-5 py-4 text-left transition-colors hover:bg-brand-50/40">
-                <ShieldAlert className={cx("size-5", c.tone === "flagged" ? "text-[#b5443a]" : "text-[#8f5a14]")} />
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2.5">
-                    <span className="font-mono text-[12.5px] font-medium text-muted">{c.id}</span>
-                    <span className="text-[14.5px] font-semibold text-ink">{c.cand}</span>
+              <button
+                onClick={() => setOpen(open === i ? -1 : i)}
+                className="flex w-full items-start gap-3 px-4 py-4 text-left transition-colors hover:bg-brand-50/40 min-[460px]:items-center min-[460px]:gap-4 min-[460px]:px-5"
+              >
+                <ShieldAlert
+                  className={cx(
+                    "mt-0.5 size-5 shrink-0 min-[460px]:mt-0",
+                    c.tone === "flagged" ? "text-[#b5443a]" : "text-[#8f5a14]",
+                  )}
+                />
+                <div className="flex min-w-0 flex-1 flex-col gap-2 min-[460px]:flex-row min-[460px]:items-center min-[460px]:justify-between min-[460px]:gap-4">
+                  <div className="min-w-0">
+                    <div className="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+                      <span className="font-mono text-[12.5px] font-medium text-muted">{c.id}</span>
+                      <span className="text-[14.5px] font-semibold text-ink">{c.cand}</span>
+                    </div>
+                    <div className="mt-0.5 text-[13px] text-muted">
+                      {c.signals.length} risk signal{c.signals.length !== 1 && "s"} detected
+                    </div>
                   </div>
-                  <div className="text-[13px] text-muted">{c.signals.length} risk signal{c.signals.length !== 1 && "s"} detected</div>
+                  <div className="shrink-0 self-start min-[460px]:self-auto">
+                    <StatusBadge tone={c.tone}>{c.risk} risk</StatusBadge>
+                  </div>
                 </div>
-                <StatusBadge tone={c.tone}>{c.risk} risk</StatusBadge>
-                <ChevronRight className={cx("size-4 text-faint transition-transform", open === i && "rotate-90")} />
+                <ChevronRight
+                  className={cx(
+                    "mt-1 size-4 shrink-0 self-center text-faint transition-transform min-[460px]:mt-0",
+                    open === i && "rotate-90",
+                  )}
+                />
               </button>
               {open === i && (
                 <div className="border-t border-line-soft bg-raised px-5 py-4">
@@ -46,7 +65,7 @@ export function Integrity() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 flex items-center gap-2">
+                  <div className="mt-4 flex flex-col sm:items-center gap-2 sm:flex-row">
                     <Button variant="secondary" size="sm">Request re-attempt</Button>
                     <Button variant="secondary" size="sm">Dismiss signal</Button>
                     <Button size="sm">Assign to reviewer</Button>

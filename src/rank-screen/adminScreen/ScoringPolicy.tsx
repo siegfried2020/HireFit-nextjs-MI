@@ -7,7 +7,7 @@ import { Card, Button, StatusBadge, SectionTitle } from "../../components/primit
 export function ScoringPolicy() {
     return (
       <div className="space-y-6">
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
           <div>
             <div className="mt-1 flex items-center gap-3">
               <h1 className="text-[30px] font-bold tracking-tight text-ink">Scoring Policy</h1>
@@ -33,12 +33,14 @@ export function ScoringPolicy() {
                 { t: "Credential", w: 6 },
                 { t: "Candidate Claim", w: 2 },
               ].map((e) => (
-                <div key={e.t} className="flex items-center gap-3">
-                  <span className="w-40 text-[13.5px] font-medium text-ink">{e.t}</span>
-                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-line-soft">
-                    <div className="h-full rounded-full bg-brand-500" style={{ width: `${(e.w / 30) * 100}%` }} />
+                <div key={e.t} className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
+                  <span className="text-[13.5px] font-medium text-ink sm:w-40 sm:shrink-0">{e.t}</span>
+                  <div className="flex min-w-0 flex-1 items-center gap-3">
+                    <div className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-line-soft">
+                      <div className="h-full rounded-full bg-brand-500" style={{ width: `${(e.w / 30) * 100}%` }} />
+                    </div>
+                    <span className="w-9 shrink-0 text-right text-[13px] font-semibold tabular-nums text-ink">{e.w}%</span>
                   </div>
-                  <span className="w-9 text-right text-[13px] font-semibold tabular-nums text-ink">{e.w}%</span>
                 </div>
               ))}
             </div>
@@ -54,7 +56,10 @@ export function ScoringPolicy() {
                   { l: "Decay after window", v: "−5% / quarter" },
                   { l: "Expired evidence", v: "Excluded from score" },
                 ].map((r) => (
-                  <div key={r.l} className="flex items-center justify-between border-b border-line-soft pb-3 last:border-0 last:pb-0">
+                  <div
+                    key={r.l}
+                    className="flex flex-col gap-1 border-b border-line-soft pb-3 last:border-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
+                  >
                     <span className="text-muted">{r.l}</span>
                     <span className="font-semibold text-ink">{r.v}</span>
                   </div>
