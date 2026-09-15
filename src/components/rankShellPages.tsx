@@ -163,7 +163,7 @@ function WorkspaceSwitcher({ session }: { session: Session }) {
         )}
       >
         <OrgBadge name={current} />
-        <span className="max-w-[160px] truncate">{current}</span>
+        <span className="max-w-[120px] truncate sm:max-w-[160px]">{current}</span>
         {multi && <ChevronsUpDown className="size-3.5 shrink-0 text-faint" />}
       </Button>
       {open && multi && (
@@ -358,39 +358,52 @@ export function Shell({
 
       {/* Main — offset by the sidebar width, scrolls with the page normally */}
       <div className="flex min-h-screen min-w-0 flex-col lg:pl-[248px]">
-        <header className="sticky top-0 z-20 flex h-16 items-center gap-4 border-b border-line bg-surface/85 px-6 backdrop-blur-md max-lg:px-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setDrawer(true)}
-            className="hidden size-9 text-ink-soft hover:bg-line-soft max-lg:inline-flex"
-            title="Open menu"
-          >
-            <Menu className="size-5" />
-          </Button>
-          <div className="flex min-w-0 flex-1 items-center gap-1">
-            <WorkspaceSwitcher session={session} />
-            <span className="shrink-0 text-line" aria-hidden>/</span>
-            <nav className="min-w-0 truncate text-[13px] font-medium text-muted [&_:last-child]:text-ink">
-              {breadcrumbs}
-            </nav>
+        <header className="sticky top-0 z-20 border-b border-line bg-surface/85 backdrop-blur-md">
+          <div className="flex min-h-16 items-center gap-2 px-4 py-2 sm:gap-4 sm:px-6 max-lg:px-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setDrawer(true)}
+              className="hidden size-9 shrink-0 self-center text-ink-soft hover:bg-line-soft max-lg:inline-flex"
+              title="Open menu"
+            >
+              <Menu className="size-5" />
+            </Button>
+            <div className="flex min-w-0 flex-1 flex-col gap-0.5 lg:flex-row lg:items-center lg:gap-1">
+              <WorkspaceSwitcher session={session} />
+              <div className="flex min-w-0 items-center gap-1 pl-2.5 lg:pl-0">
+                <span className="hidden shrink-0 text-line lg:inline" aria-hidden>/</span>
+                <nav className="min-w-0 truncate text-[12px] font-medium text-muted sm:text-[13px] [&_:last-child]:text-ink">
+                  {breadcrumbs}
+                </nav>
+              </div>
+            </div>
+            <div className="hidden min-w-0 max-w-[280px] flex-1 items-center gap-2 self-center rounded-[9px] border border-line bg-canvas px-3 py-1.5 text-[13px] text-faint lg:flex xl:max-w-none">
+              <Search className="size-4 shrink-0" />
+              <span className="min-w-0 truncate">Search talent, roles, skills…</span>
+              <span className="ml-auto hidden items-center gap-0.5 rounded-[5px] border border-line bg-surface px-1.5 py-0.5 text-[11px] font-medium text-muted xl:flex">
+                <Command className="size-3" />K
+              </span>
+            </div>
+            <div className="flex shrink-0 items-center gap-1 self-center">
+              {actions}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative size-9 shrink-0 text-ink-soft hover:bg-line-soft"
+              >
+                <Bell className="size-[18px]" />
+                <span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#b5443a] ring-2 ring-surface" />
+              </Button>
+            </div>
           </div>
-          <div className="hidden items-center gap-2 rounded-[9px] border border-line bg-canvas px-3 py-1.5 text-[13px] text-faint md:flex">
-            <Search className="size-4" />
-            <span>Search talent, roles, skills…</span>
-            <span className="ml-6 flex items-center gap-0.5 rounded-[5px] border border-line bg-surface px-1.5 py-0.5 text-[11px] font-medium text-muted">
-              <Command className="size-3" />K
-            </span>
+          {/* Mobile / tablet search row */}
+          <div className="border-t border-line px-4 py-2.5 lg:hidden">
+            <div className="flex items-center gap-2 rounded-[9px] border border-line bg-canvas px-3 py-2 text-[13px] text-faint">
+              <Search className="size-4 shrink-0" />
+              <span className="min-w-0 truncate">Search talent, roles, skills…</span>
+            </div>
           </div>
-          {actions}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="relative size-9 text-ink-soft hover:bg-line-soft"
-          >
-            <Bell className="size-[18px]" />
-            <span className="absolute right-2 top-2 size-1.5 rounded-full bg-[#b5443a] ring-2 ring-surface" />
-          </Button>
         </header>
         <main className="min-w-0 flex-1">
           <div key={session.portal + route} className="tie-fade mx-auto max-w-[1200px] px-6 py-7 max-lg:px-4">

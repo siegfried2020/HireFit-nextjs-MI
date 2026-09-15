@@ -55,24 +55,26 @@ export function CohortInsight() {
             </ResponsiveContainer>
           </Card>
   
-          <Card className="p-4">
+          <Card className="min-w-0 overflow-hidden p-4">
             <SectionTitle title="Skill gap heatmap" eyebrow="Avg. evidenced level by cohort" />
-            <div className="overflow-x-auto">
-              <table className="w-full border-separate border-spacing-1">
+            <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+              <table className="min-w-[560px] w-full border-separate border-spacing-1">
                 <thead>
                   <tr>
                     <th className="w-24"></th>
                     {heat.map((h) => (
-                      <th key={h} className="pb-1 text-[11px] font-semibold text-faint">{h}</th>
+                      <th key={h} className="whitespace-nowrap px-1 pb-1 text-center text-[11px] font-semibold text-faint">
+                        {h}
+                      </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {cohorts.map((c) => (
                     <tr key={c}>
-                      <td className="pr-2 text-right text-[12.5px] font-semibold text-ink">{c}</td>
+                      <td className="whitespace-nowrap pr-2 text-right text-[12.5px] font-semibold text-ink">{c}</td>
                       {heatData[c].map((v, i) => (
-                        <td key={i}>
+                        <td key={i} className="min-w-[72px]">
                           <div className={cx("grid h-9 place-items-center rounded-[7px] text-[12px] font-bold tabular-nums", heatColor(v))}>
                             {v}
                           </div>
@@ -83,7 +85,9 @@ export function CohortInsight() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-3 text-[12.5px] text-muted">Performance Testing is the consistent gap across cohorts — a candidate for curriculum focus.</p>
+            <p className="mt-3 text-[12.5px] leading-relaxed text-muted">
+              Performance Testing is the consistent gap across cohorts — a candidate for curriculum focus.
+            </p>
           </Card>
         </div>
       </div>

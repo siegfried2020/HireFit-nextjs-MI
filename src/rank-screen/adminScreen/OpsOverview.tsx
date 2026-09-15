@@ -69,19 +69,19 @@ export function OpsOverview() {
     return (
       <div className="space-y-5">
         {/* Page header */}
-        <div className="flex items-end justify-between gap-4">
-          <div>
+        <div className="flex items-end justify-between gap-4 max-sm:flex-col max-sm:items-start">
+          <div className="min-w-0">
             <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-faint">Platform &amp; Institution Ops</div>
             <h1 className="text-[22px] font-bold tracking-tight text-ink">Operations Overview</h1>
           </div>
-          <div className="flex items-center gap-2 rounded-[9px] border border-line bg-surface px-3 py-1.5 text-[12px] text-muted">
-            <CheckCircle2 className="size-3.5 text-[#2e7d5b]" />
-            All systems operational
+          <div className="flex shrink-0 items-center gap-2 rounded-[9px] border border-line bg-surface px-3 py-1.5 text-[12px] text-muted">
+            <CheckCircle2 className="size-3.5 shrink-0 text-[#2e7d5b]" />
+            <span className="whitespace-nowrap">All systems operational</span>
           </div>
         </div>
   
-        {/* Top summary row — 5 KPIs */}
-        <div className="grid grid-cols-5 gap-3 max-xl:grid-cols-3 max-lg:grid-cols-2">
+        {/* Top summary row — 5 KPIs (mobile-first so cols don't fight) */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {[
             { l: "Assessments today", v: "1,284", s: "across 42 tenants", icon: Activity, tone: "neutral" as const },
             { l: "Avg. readiness", v: "68%", s: "+3pp vs last cohort", icon: TrendingUp, tone: "up" as const },
@@ -89,8 +89,8 @@ export function OpsOverview() {
             { l: "Appeal backlog", v: "17", s: "3 over 48h SLA", icon: Clock, tone: "down" as const },
             { l: "AI cost (MTD)", v: "SAR 38.4k", s: "72% of monthly budget", icon: DollarSign, tone: "neutral" as const },
           ].map((k) => (
-            <Card key={k.l} className="p-4">
-              <div className="flex items-start justify-between gap-2">
+            <Card key={k.l} className="min-w-0 p-4">
+              <div className="flex min-w-0 items-start justify-between gap-2">
                 <Stat label={k.l} value={k.v} sub={k.s} />
                 <div className={cx(
                   "mt-0.5 grid size-8 shrink-0 place-items-center rounded-[9px]",
@@ -132,12 +132,17 @@ export function OpsOverview() {
                 { n: "Evidence store", s: "Degraded · 1 region", tone: "review" as const, icon: ShieldAlert },
                 { n: "Billing / cost", s: "Operational", tone: "verified" as const, icon: DollarSign },
               ].map((x) => (
-                <div key={x.n} className="flex items-center justify-between rounded-[10px] border border-line-soft bg-raised px-3 py-2">
-                  <div className="flex items-center gap-2.5">
-                    <x.icon className="size-[18px] text-muted" />
-                    <span className="text-[13.5px] font-semibold text-ink">{x.n}</span>
+                <div
+                  key={x.n}
+                  className="flex flex-col gap-2 rounded-[10px] border border-line-soft bg-raised px-3 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
+                >
+                  <div className="flex min-w-0 items-center gap-2.5">
+                    <x.icon className="size-[18px] shrink-0 text-muted" />
+                    <span className="truncate text-[13.5px] font-semibold text-ink">{x.n}</span>
                   </div>
-                  <StatusBadge tone={x.tone}>{x.s}</StatusBadge>
+                  <div className="shrink-0 self-start sm:self-auto">
+                    <StatusBadge tone={x.tone}>{x.s}</StatusBadge>
+                  </div>
                 </div>
               ))}
             </div>
@@ -154,12 +159,17 @@ export function OpsOverview() {
                 { id: "INT-2839", sig: "Multiple paste events", tone: "review" as const },
                 { id: "INT-2835", sig: "Answer similarity flag", tone: "flagged" as const },
               ].map((c) => (
-                <div key={c.id} className="flex items-center justify-between py-2.5 first:pt-0 last:pb-0">
-                  <div>
+                <div
+                  key={c.id}
+                  className="flex flex-col gap-2 py-2.5 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
+                >
+                  <div className="min-w-0">
                     <div className="font-mono text-[12.5px] font-medium text-muted">{c.id}</div>
                     <div className="text-[13.5px] font-medium text-ink">{c.sig}</div>
                   </div>
-                  <StatusBadge tone={c.tone}>Needs Review</StatusBadge>
+                  <div className="shrink-0 self-start sm:self-auto">
+                    <StatusBadge tone={c.tone}>Needs Review</StatusBadge>
+                  </div>
                 </div>
               ))}
             </div>
@@ -203,24 +213,26 @@ export function OpsOverview() {
             </ResponsiveContainer>
           </Card>
   
-          <Card className="p-4">
+          <Card className="min-w-0 overflow-hidden p-4">
             <SectionTitle title="Skill gap heatmap" eyebrow="Avg. evidenced level by cohort" />
-            <div className="overflow-x-auto">
-              <table className="w-full border-separate border-spacing-1">
+            <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+              <table className="min-w-[560px] w-full border-separate border-spacing-1">
                 <thead>
                   <tr>
                     <th className="w-20"></th>
                     {heat.map((h) => (
-                      <th key={h} className="pb-1 text-[11px] font-semibold text-faint">{h}</th>
+                      <th key={h} className="whitespace-nowrap px-1 pb-1 text-center text-[11px] font-semibold text-faint">
+                        {h}
+                      </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {cohorts.map((c) => (
                     <tr key={c}>
-                      <td className="pr-2 text-right text-[12.5px] font-semibold text-ink">{c}</td>
+                      <td className="whitespace-nowrap pr-2 text-right text-[12.5px] font-semibold text-ink">{c}</td>
                       {heatData[c].map((v, i) => (
-                        <td key={i}>
+                        <td key={i} className="min-w-[72px]">
                           <div className={cx("grid h-9 place-items-center rounded-[7px] text-[12px] font-bold tabular-nums", heatColor(v))}>
                             {v}
                           </div>
@@ -231,7 +243,9 @@ export function OpsOverview() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-2 text-[12.5px] text-muted">Performance Testing is the consistent gap — a candidate for curriculum focus.</p>
+            <p className="mt-2 text-[12.5px] leading-relaxed text-muted">
+              Performance Testing is the consistent gap — a candidate for curriculum focus.
+            </p>
           </Card>
         </div>
   

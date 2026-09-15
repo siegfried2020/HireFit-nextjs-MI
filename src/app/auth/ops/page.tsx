@@ -2,15 +2,14 @@
 
 import { useState } from "react";
 import {
-  Login,
-  Forgot,
-  Reset,
-  InviteAccept,
-  Signup,
   sessionFor,
   useAuthNav,
-} from "@/app/auth/RoleSelection";
+} from "@/app/auth/roleSelection/RoleSelection";
 import { useSession } from "@/context/SessionContext";
+import { Login } from "../roleSelection/Shared/login/page";
+import { Forgot, Reset } from "../roleSelection/Shared/ForgotResetPass/page";
+import { InviteAccept } from "../roleSelection/Shared/InviteAccept/page";
+import { Signup } from "../roleSelection/Shared/signup/page";
 
 type Step =
   | { k: "login" }

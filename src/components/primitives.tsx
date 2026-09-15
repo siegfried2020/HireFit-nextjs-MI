@@ -255,10 +255,10 @@ export function Stat({
   trend?: { dir: "up" | "down"; value: string; good?: boolean };
 }) {
   return (
-    <div>
-      <div className="text-[12px] font-medium uppercase tracking-wide text-faint">{label}</div>
-      <div className="mt-1.5 flex items-baseline gap-2">
-        <span className="text-[28px] font-bold tracking-tight text-ink tabular-nums">{value}</span>
+    <div className="min-w-0 flex-1">
+      <div className="truncate text-[11px] font-medium uppercase tracking-wide text-faint sm:text-[12px]">{label}</div>
+      <div className="mt-1.5 flex min-w-0 flex-wrap items-baseline gap-2">
+        <span className="text-[22px] font-bold tracking-tight text-ink tabular-nums sm:text-[28px]">{value}</span>
         {trend && (
           <span
             className={cx(
@@ -270,7 +270,7 @@ export function Stat({
           </span>
         )}
       </div>
-      {sub && <div className="mt-0.5 text-[13px] text-muted">{sub}</div>}
+      {sub && <div className="mt-0.5 truncate text-[12px] text-muted sm:text-[13px]">{sub}</div>}
     </div>
   );
 }
