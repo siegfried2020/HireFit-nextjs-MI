@@ -30,7 +30,7 @@ export function PageHead({
     actions?: ReactNode;
   }) {
     return (
-      <div className="flex items-start justify-between gap-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
         <div className="min-w-0">
           {eyebrow && (
             <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-faint">{eyebrow}</div>
@@ -38,7 +38,7 @@ export function PageHead({
           <h1 className="text-[22px] font-bold tracking-tight text-ink">{title}</h1>
           {sub && <div className="text-[13px] text-muted">{sub}</div>}
         </div>
-        {actions && <div className="flex shrink-0 gap-2">{actions}</div>}
+        {actions && <div className="flex w-full shrink-0 gap-2 sm:w-auto">{actions}</div>}
       </div>
     );
   }

@@ -200,7 +200,7 @@ export function SectionTitle({
   action?: ReactNode;
 }) {
   return (
-    <div className="mb-4 flex items-end justify-between gap-4">
+    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
       <div>
         {eyebrow && (
           <div className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-faint">

@@ -54,7 +54,7 @@ export function EmployerDashboard({ go }: { go: (r: string) => void }) {
           eyebrow={`${emp.workspace} · Talent workspace`}
           title="Recruitment intelligence"
           actions={
-            <Button onClick={() => go("job-dna")}>
+            <Button onClick={() => go("job-dna")} className="w-full sm:w-auto">
               <Plus className="size-4" /> New role
             </Button>
           }
@@ -107,7 +107,7 @@ export function EmployerDashboard({ go }: { go: (r: string) => void }) {
   
             <Card className="p-4">
               <SectionTitle title="Pipeline summary" action={<button onClick={() => go("pipeline")} className="text-[13px] font-semibold text-brand-600">Open pipeline</button>} />
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {STAGES.map((s) => {
                   const n = emp.pipeline.filter((p) => p.stage === s).length;
                   return (

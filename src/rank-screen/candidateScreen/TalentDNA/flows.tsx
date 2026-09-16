@@ -19,9 +19,31 @@ import {
   cx,
 } from "../../../components/primitives";
 import { ReactNode, useState } from "react";
+import { createPortal } from "react-dom";
 import type { EvidenceItem, Skill, TargetRole, Level } from "./types";
 import { LEVELS, SKILL_STATE, EV_STATE, EVIDENCE_COLORS } from "./types";
 import { SKILL_TAXONOMY, ASSESSMENTS, AVAILABLE_ROLES } from "./data";
+
+function ModalOverlay({
+  onClose,
+  children,
+  className = "flex items-center justify-center p-4",
+  dim = "bg-ink/50 backdrop-blur-md",
+}: {
+  onClose: () => void;
+  children: ReactNode;
+  className?: string;
+  dim?: string;
+}) {
+  if (typeof document === "undefined") return null;
+  return createPortal(
+    <div className={`fixed inset-0 z-[100] ${className}`}>
+      <div className={`absolute inset-0 ${dim}`} onClick={onClose} />
+      {children}
+    </div>,
+    document.body,
+  );
+}
 
 export function ModalShell({
   title, subtitle, eyebrow, onClose, children, footer,
@@ -30,8 +52,7 @@ export function ModalShell({
   onClose: () => void; children: ReactNode; footer?: ReactNode;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={onClose} />
+    <ModalOverlay onClose={onClose}>
       <div className="tie-fade relative flex w-full max-w-[520px] flex-col overflow-hidden rounded-[16px] border border-line bg-surface shadow-[var(--shadow-pop)]">
         <div className="flex items-start justify-between border-b border-line px-6 py-5">
           <div>
@@ -46,7 +67,7 @@ export function ModalShell({
         <div className="max-h-[70vh] overflow-y-auto p-5">{children}</div>
         {footer && <div className="border-t border-line px-6 py-4">{footer}</div>}
       </div>
-    </div>
+    </ModalOverlay>
   );
 }
 
@@ -553,8 +574,7 @@ export function SkillPanel({
   const sc = SKILL_STATE[skill.state];
   const noEv = skill.evidenced === "None" || skill.evidenced === "";
   return (
-    <div className="fixed inset-0 z-40 flex justify-end">
-      <div className="absolute inset-0 bg-ink/25 backdrop-blur-[2px]" onClick={onClose} />
+    <ModalOverlay onClose={onClose} className="flex justify-end" dim="bg-ink/40 backdrop-blur-md">
       <div className="tie-fade relative flex h-full w-full max-w-[480px] flex-col border-l border-line bg-surface shadow-[var(--shadow-pop)]">
         <div className="flex items-start justify-between border-b border-line px-6 py-5">
           <div>
@@ -629,7 +649,7 @@ export function SkillPanel({
           <Button variant="secondary" className="shrink-0" onClick={onEditClaim}>Edit Claim</Button>
         </div>
       </div>
-    </div>
+    </ModalOverlay>
   );
 }
 
@@ -786,8 +806,7 @@ export function SelectEvidenceType({
   onClose: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={onClose} />
+    <ModalOverlay onClose={onClose}>
       <div className="tie-fade relative w-full max-w-[520px] overflow-hidden rounded-[16px] border border-line bg-surface shadow-[var(--shadow-pop)]">
         <div className="flex items-start justify-between border-b border-line px-6 py-5">
           <div>
@@ -829,6 +848,6 @@ export function SelectEvidenceType({
           </button>
         </div>
       </div>
-    </div>
+    </ModalOverlay>
   );
 }
