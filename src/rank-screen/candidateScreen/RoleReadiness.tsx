@@ -1,5 +1,5 @@
 import { Card, Confidence, cx, ScoreRing } from "@/components/primitives";
-import { ShieldCheck, TrendingUp } from "lucide-react";
+import { ChevronRight, ShieldCheck, TrendingUp } from "lucide-react";
 import { useState } from "react";
 
 export function RoleReadiness() {
@@ -47,8 +47,8 @@ export function RoleReadiness() {
           <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-faint">
             Role readiness &middot; explainable score
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            {/* {roleOptions.map((r, i) => (
+          {/* <div className="flex flex-wrap items-center gap-2">
+            {roleOptions.map((r, i) => (
               <button
                 key={r.title}
                 onClick={() => setRoleIdx(i)}
@@ -61,15 +61,15 @@ export function RoleReadiness() {
               >
                 {r.title}
               </button> 
-            ))} */}
-            {/* <button className="rounded-[10px] border border-dashed border-line px-4 py-2 text-[14px] font-medium text-faint hover:border-brand-300 hover:text-brand-600">
+            ))}
+            <button className="rounded-[10px] border border-dashed border-line px-4 py-2 text-[14px] font-medium text-faint hover:border-brand-300 hover:text-brand-600">
               + Add target role
-            </button> */}
-          </div>
+            </button>
+          </div> */}
         </div>
   
         <div className="grid grid-cols-[320px_1fr] gap-6 max-lg:grid-cols-1">
-          <Card className="flex flex-col items-center p-6 text-center">
+          <Card className="flex flex-col p-6 text-left items-start lg:items-center lg:text-center max-[450px]:items-center max-[450px]:text-center">
             <ScoreRing value={role.readiness} size={132} stroke={10} />
             <div className="mt-4 flex items-center gap-2">
               <span className="text-[15px] font-bold text-ink">{role.readiness}% Readiness</span>
@@ -98,62 +98,70 @@ export function RoleReadiness() {
               <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-brand-600">
                 <TrendingUp className="size-4" /> One skill away
               </div>
-              <div className="mt-2 flex items-end justify-between gap-4">
+              <div className="mt-2 flex items-end gap-4 max-[480px]:flex-col max-[480px]:items-start min-[480px]:justify-between">
                 <div>
                   <div className="text-[18px] font-bold text-ink">{role.oneSkillAway}</div>
                   <div className="text-[14px] text-brand-700/80">{role.oneSkillDetail}</div>
                 </div>
-                <div className="text-right">
+                <div className="text-left min-[480px]:text-right">
                   <div className="text-[28px] font-bold tabular-nums text-brand-600">{role.oneSkillBoost}</div>
                   <div className="text-[12px] text-brand-700/70">potential readiness</div>
                 </div>
               </div>
-              <p className="mt-3 rounded-[9px] bg-surface/70 px-3 py-2 text-[13px] text-brand-800">
+              <p className="mt-3 rounded-[9px] bg-surface/70 py-2 text-[13px] text-brand-800 min-[480px]:px-3">
                 Complete learning or practice, then re-assess to verify improvement. Learning alone does not
                 change your score &mdash; new evidence does.
               </p>
             </Card>
   
             <Card className="overflow-hidden">
-              <div className="grid grid-cols-[1.4fr_1fr_1fr_0.6fr_0.8fr_0.6fr] gap-3 border-b border-line bg-raised px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-faint">
-                <div>Skill</div>
-                <div>Required</div>
-                <div>You</div>
-                <div>Evidence</div>
-                <div>Contribution</div>
-                <div>Gap</div>
+              <div className="flex items-center justify-end gap-1.5 border-b border-line bg-raised px-4 py-1.5 text-[11px] font-medium text-faint md:hidden">
+                <span>Swipe to see more</span>
+                <ChevronRight className="size-3.5" />
               </div>
-              <div className="divide-y divide-line-soft">
-                {role.rows.map((r) => (
-                  <div
-                    key={r.skill}
-                    className="grid grid-cols-[1.4fr_1fr_1fr_0.6fr_0.8fr_0.6fr] items-center gap-3 px-5 py-3.5 text-[13.5px]"
-                  >
-                    <div className="font-semibold text-ink">{r.skill}</div>
-                    <div className="text-muted">{r.req}</div>
-                    <div className={cx("font-medium", r.gap > 0 ? "text-[#8f5a14]" : "text-ink")}>
-                      {r.cand}
-                    </div>
-                    <div className="text-muted tabular-nums">{r.ev}</div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <div className="h-1.5 w-14 overflow-hidden rounded-full bg-line-soft">
-                          <div className="h-full rounded-full bg-brand-500" style={{ width: `${r.contrib * 4}%` }} />
-                        </div>
-                        <span className="tabular-nums text-muted">{r.contrib}%</span>
-                      </div>
-                    </div>
-                    <div>
-                      {r.gap === 0 ? (
-                        <span className="text-[12px] font-semibold text-[#2e7d5b]">Met</span>
-                      ) : (
-                        <span className="rounded-full bg-[#fbf1e2] px-2 py-0.5 text-[12px] font-bold text-[#8f5a14]">
-                          -{r.gap}
-                        </span>
-                      )}
-                    </div>
+              <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+                <div className="min-w-[720px]">
+                  <div className="grid grid-cols-[1.4fr_1fr_1fr_0.6fr_0.8fr_0.6fr] gap-3 border-b border-line bg-raised px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-faint">
+                    <div>Skill</div>
+                    <div>Required</div>
+                    <div>You</div>
+                    <div>Evidence</div>
+                    <div>Contribution</div>
+                    <div>Gap</div>
                   </div>
-                ))}
+                  <div className="divide-y divide-line-soft">
+                    {role.rows.map((r) => (
+                      <div
+                        key={r.skill}
+                        className="grid grid-cols-[1.4fr_1fr_1fr_0.6fr_0.8fr_0.6fr] items-center gap-3 px-5 py-3.5 text-[13.5px]"
+                      >
+                        <div className="font-semibold text-ink">{r.skill}</div>
+                        <div className="text-muted">{r.req}</div>
+                        <div className={cx("font-medium", r.gap > 0 ? "text-[#8f5a14]" : "text-ink")}>
+                          {r.cand}
+                        </div>
+                        <div className="text-muted tabular-nums">{r.ev}</div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <div className="h-1.5 w-14 shrink-0 overflow-hidden rounded-full bg-line-soft">
+                              <div className="h-full rounded-full bg-brand-500" style={{ width: `${r.contrib * 4}%` }} />
+                            </div>
+                            <span className="tabular-nums text-muted">{r.contrib}%</span>
+                          </div>
+                        </div>
+                        <div>
+                          {r.gap === 0 ? (
+                            <span className="text-[12px] font-semibold text-[#2e7d5b]">Met</span>
+                          ) : (
+                            <span className="rounded-full bg-[#fbf1e2] px-2 py-0.5 text-[12px] font-bold text-[#8f5a14]">
+                              -{r.gap}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </Card>
           </div>

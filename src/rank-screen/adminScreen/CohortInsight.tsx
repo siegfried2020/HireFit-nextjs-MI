@@ -9,6 +9,7 @@ import {
   CartesianGrid
 } from "recharts";
 import { Card, Button, StatusBadge, SectionTitle, Stat, cx } from "../../components/primitives";
+import { ChevronRight } from "lucide-react";
 
 export function CohortInsight() {
     const dist = [
@@ -57,6 +58,10 @@ export function CohortInsight() {
   
           <Card className="min-w-0 overflow-hidden p-4">
             <SectionTitle title="Skill gap heatmap" eyebrow="Avg. evidenced level by cohort" />
+            <div className="mb-2 flex items-center justify-end gap-1.5 text-[11px] font-medium text-faint md:hidden">
+              <span>Swipe to see more</span>
+              <ChevronRight className="size-3.5" />
+            </div>
             <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
               <table className="min-w-[560px] w-full border-separate border-spacing-1">
                 <thead>

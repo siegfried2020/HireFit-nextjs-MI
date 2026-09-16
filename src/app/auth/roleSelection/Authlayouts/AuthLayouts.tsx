@@ -9,9 +9,12 @@ import { Logo, type Portal, } from "../../../../components/rankShellPages";
 
 export function AuthLayout({ children, wide, onGoHome }: { children: ReactNode; wide?: boolean; onGoHome?: () => void }) {
     return (
-      <div className="grid min-h-full grid-cols-[1.05fr_1fr] bg-canvas max-lg:grid-cols-1" style={{ minHeight: "100dvh" }}>
-        {/* Brand panel */}
-        <div className="relative flex flex-col justify-between overflow-hidden bg-brand-800 p-12 text-white max-lg:hidden" style={{ minHeight: "100dvh" }}>
+      <div
+        className="grid min-h-full grid-cols-1 bg-canvas lg:grid-cols-[1.05fr_1fr]"
+        style={{ minHeight: "100dvh" }}
+      >
+        {/* Brand panel — compact on mobile, full-height column on desktop */}
+        <div className="relative flex flex-col justify-between overflow-hidden bg-brand-800 px-6 py-8 text-white sm:px-10 sm:py-10 lg:min-h-[100dvh] lg:p-12">
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.06]"
             style={{
@@ -29,23 +32,23 @@ export function AuthLayout({ children, wide, onGoHome }: { children: ReactNode; 
               <Logo size={52} invert />
             )}
           </div>
-  
-          <div className="relative max-w-md">
-            <h2 className="text-[30px] font-bold leading-tight tracking-tight">
+
+          <div className="relative mt-8 max-w-md lg:mt-0">
+            <h2 className="text-[24px] font-bold leading-tight tracking-tight sm:text-[28px] lg:text-[30px]">
               Evidence over claims. Trust over guesswork.
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-brand-100">
+            <p className="mt-3 text-[14px] leading-relaxed text-brand-100 sm:mt-4 sm:text-[15px]">
               One credible ecosystem connecting verified talent with the teams and institutions that
               value proven capability.
             </p>
-            <div className="mt-8 space-y-3">
+            <div className="mt-5 space-y-2.5 sm:mt-8 sm:space-y-3">
               {[
                 "Verified Talent Passports, not self-reported profiles",
                 "Explainable readiness — every score shows its evidence",
                 "Human decisions, always in the loop",
               ].map((t) => (
-                <div key={t} className="flex items-center gap-3 text-[14px] text-brand-50">
-                  <span className="grid size-5 shrink-0 place-items-center rounded-full bg-white/12">
+                <div key={t} className="flex items-start gap-3 text-[13px] text-brand-50 sm:items-center sm:text-[14px]">
+                  <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-white/12 sm:mt-0">
                     <Check className="size-3" />
                   </span>
                   {t}
@@ -53,20 +56,20 @@ export function AuthLayout({ children, wide, onGoHome }: { children: ReactNode; 
               ))}
             </div>
           </div>
-  
-          <div className="relative text-[12.5px] text-brand-200">
+
+          <div className="relative mt-6 text-[12px] text-brand-200 sm:text-[12.5px] lg:mt-0">
             Trusted by hiring teams and institutions across the Kingdom · Nafath-ready
           </div>
         </div>
-  
+
         {/* Form panel */}
-        <div className="flex min-h-full items-center justify-center overflow-y-auto px-6 py-10">
+        <div className="flex min-h-0 items-center justify-center overflow-y-auto px-6 py-10 lg:min-h-full">
           <div className={cx("w-full", wide ? "max-w-[520px]" : "max-w-[400px]")}>{children}</div>
         </div>
       </div>
     );
   }
-  
+
 export  function RoleContext({ role, onChange }: { role: Portal; onChange: () => void }) {
     const r = ROLES[role];
     const Icon = r.icon;

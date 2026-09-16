@@ -1,6 +1,6 @@
 
 import { ArrowLeft } from "lucide-react";
-import { Logo, type Portal,  } from "../../../../../components/rankShellPages";
+import { type Portal } from "../../../../../components/rankShellPages";
 import { AuthLayout, RoleContext } from "../../Authlayouts/AuthLayouts";
 import { Steps } from "../Roles&Sessions";
 import { CandidateSignup } from "./CandidateSignup";
@@ -45,16 +45,7 @@ export function Signup({
         <button onClick={back} className="mb-6 flex items-center gap-1.5 text-[13px] font-semibold text-muted hover:text-ink">
           <ArrowLeft className="size-4" /> {index === 0 ? "Back to role selection" : "Back"}
         </button>
-        <div className="mb-5 lg:hidden">
-          {onGoHome ? (
-            <button onClick={onGoHome} className="rounded-[6px] transition-opacity hover:opacity-75" title="Back to home">
-              <Logo size={46} />
-            </button>
-          ) : (
-            <Logo size={46} />
-          )}
-        </div>
-  
+
         {!isDone && (
           <>
             <RoleContext role={role} onChange={onBackToRole} />

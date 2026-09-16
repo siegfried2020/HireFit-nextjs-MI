@@ -6,7 +6,7 @@ import {
   Lock,
 } from "lucide-react";
 import { Button, cx } from "../../../../../components/primitives";
-import { Logo, type Portal, type Session } from "../../../../../components/rankShellPages";
+import { type Portal } from "../../../../../components/rankShellPages";
 import { AuthLayout, RoleContext } from "../../Authlayouts/AuthLayouts";
 import { ROLES } from "../Roles&Sessions";
 import { Field } from "../Field&Segmented";
@@ -34,15 +34,6 @@ export function Login({
         <button onClick={onBack} className="mb-6 flex items-center gap-1.5 text-[13px] font-semibold text-muted hover:text-ink">
           <ArrowLeft className="size-4" /> Back to role selection
         </button>
-        <div className="mb-5 lg:hidden">
-          {onGoHome ? (
-            <button onClick={onGoHome} className="rounded-[6px] transition-opacity hover:opacity-75" title="Back to home">
-              <Logo size={52} />
-            </button>
-          ) : (
-            <Logo size={52} />
-          )}
-        </div>
         <RoleContext role={role} onChange={onBack} />
   
         <h1 className="text-[26px] font-bold tracking-tight text-ink">Welcome back</h1>

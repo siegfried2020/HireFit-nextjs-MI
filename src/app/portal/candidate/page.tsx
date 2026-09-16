@@ -6,7 +6,7 @@ import { Shell, PORTALS } from "@/components/rankShellPages";
 import { usePortalGate } from "../usePortalGate";
 import { CandidateDashboard } from "@/rank-screen/candidateScreen/Dashboard";
 import { Passport } from "@/rank-screen/candidateScreen/Passport";
-import { TalentDNA } from "@/rank-screen/candidateScreen/TalentDNA";
+import { TalentDNA } from "@/rank-screen/candidateScreen/TalentDNA/TalentDNA";
 import { RoleReadiness } from "@/rank-screen/candidateScreen/RoleReadiness";
 import { JobMatches } from "@/rank-screen/candidateScreen/JobMatches";
 

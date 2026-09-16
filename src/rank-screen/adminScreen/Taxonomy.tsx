@@ -27,6 +27,10 @@ export function Taxonomy() {
         </div>
   
         <Card className="overflow-hidden">
+          <div className="flex items-center justify-end gap-1.5 border-b border-line bg-raised px-4 py-1.5 text-[11px] font-medium text-faint md:hidden">
+            <span>Swipe to see more</span>
+            <ChevronRight className="size-3.5" />
+          </div>
           <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
             <div className="min-w-[720px]">
               <div className="grid grid-cols-[1.6fr_1.2fr_1fr_0.7fr_1fr_auto] gap-3 border-b border-line bg-raised px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-faint">

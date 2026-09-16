@@ -6,7 +6,7 @@ import { Award, Share2, ShieldCheck } from "lucide-react";
 export function Passport() {
     return (
       <div className="space-y-6">
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex items-end max-[500px]:flex-col max-[500px]:items-start min-[500px]:justify-between gap-6">
           <div>
             <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-faint">
               Verified credential
@@ -22,7 +22,7 @@ export function Passport() {
         <div className="grid grid-cols-[1fr_320px] gap-6 max-lg:grid-cols-1">
           {/* passport card */}
           <div className="overflow-hidden rounded-[16px] border border-brand-700 bg-brand-800 text-white shadow-[var(--shadow-raised)]">
-            <div className="flex items-start justify-between gap-4 border-b border-white/10 px-7 py-6">
+            <div className="flex items-start max-[500px]:flex-col max-[500px]:items-start min-[500px]:justify-between gap-4 border-b border-white/10 px-7 py-6">
               <div>
                 <div className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.18em] text-brand-200">
                   <ShieldCheck className="size-4" /> HireFit Verified Talent Passport
@@ -42,7 +42,7 @@ export function Passport() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-6 px-7 py-6">
+            <div className="grid grid-cols-3 gap-2 px-4 py-6 sm:gap-6 sm:px-7">
               <div>
                 <div className="text-[11px] uppercase tracking-wide text-brand-200">Readiness</div>
                 <div className="mt-1 text-[24px] font-bold tabular-nums">82%</div>
@@ -56,7 +56,7 @@ export function Passport() {
                 <div className="mt-1 text-[24px] font-bold tabular-nums">9</div>
               </div>
             </div>
-            <div className="px-7 pb-6">
+            <div className="px-4 sm:px-7 pb-6">
               <div className="text-[11px] uppercase tracking-wide text-brand-200">Verified skills</div>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {["API Testing", "Playwright / E2E", "CI/CD Pipelines", "Test Strategy", "SQL"].map((s) => (
@@ -69,7 +69,7 @@ export function Passport() {
                 ))}
               </div>
             </div>
-            <div className="flex items-center justify-between border-t border-white/10 px-7 py-4 text-[12px] text-brand-100">
+            <div className="flex items-center justify-between border-t border-white/10 px-4 sm:px-7 py-4 text-[12px] text-brand-100">
               <span>Verification ID · TIE-KSA-2026-8F3A21</span>
               <span>Issued 14 Aug 2026 · Expires 14 Feb 2027</span>
             </div>

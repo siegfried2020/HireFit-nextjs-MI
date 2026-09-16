@@ -36,7 +36,7 @@ export function JobMatches() {
     ];
     return (
       <div className="space-y-6">
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex items-end gap-6 max-[500px]:flex-col max-[500px]:items-start min-[500px]:justify-between">
           <div>
             <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-faint">
               Capability-aligned
@@ -67,7 +67,7 @@ export function JobMatches() {
                     {j.co.slice(0, 2)}
                   </div>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 max-[500px]:flex-col max-[500px]:items-start">
                       <h3 className="text-[16px] font-bold text-ink">{j.role}</h3>
                       {j.saudi && <StatusBadge tone="published">National Talent</StatusBadge>}
                     </div>
