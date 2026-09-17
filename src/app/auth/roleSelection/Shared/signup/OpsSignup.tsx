@@ -1,26 +1,14 @@
-
-import { useState, type ComponentType, type ReactNode, type SVGProps } from "react";
-import { useRouter } from "next/navigation";
 import {
-  User,
-  Users,
-  Building2,
-  ShieldCheck,
   ArrowRight,
-  ArrowLeft,
-  Check,
-  Eye,
-  EyeOff,
   Mail,
   Lock,
-  BadgeCheck,
-  KeyRound,
-  type LucideIcon,
 } from "lucide-react";
 import { Button, cx } from "../../../../../components/primitives";
 import { LoginPrompt, StepHead } from "../Roles&Sessions";
 import { Field, Segmented } from "../Field&Segmented";
 import { DoneStep, VerifyStep } from "../verification/page";
+
+
 export function OpsSignup({ index, next, onComplete, onLogin }: { index: number; next: () => void; onComplete: () => void; onLogin: () => void }) {
     switch (index) {
       case 0:

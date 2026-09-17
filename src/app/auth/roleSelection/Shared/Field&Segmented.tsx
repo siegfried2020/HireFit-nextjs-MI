@@ -1,4 +1,4 @@
-
+"use client"
 import { useState, type ComponentType, type ReactNode, type SVGProps } from "react";
 import {
   Eye,

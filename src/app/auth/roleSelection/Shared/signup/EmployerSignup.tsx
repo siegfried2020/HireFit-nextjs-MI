@@ -1,8 +1,10 @@
+"use client"
+
 import { Button, cx } from "@/components/primitives";
 import { Field, Segmented } from "../Field&Segmented";
 import { LoginPrompt, StepHead } from "../Roles&Sessions";
 
-import { useState, type ComponentType, type ReactNode, type SVGProps } from "react";
+import { useState } from "react";
 import {
   Users,
   Building2,
