@@ -316,7 +316,7 @@ import { Card, Button, StatusBadge, SectionTitle, Stat, cx } from "../../compone
 // ALL RANK SCREENS FILES ARE USED FOR PORTAL FILE
 
 
-// DO NOT DELETE THIS FILE
+// DO NOT DELETE THIS Function
 export function AdminOverview() {
   const vol = [
     { d: "Mon", v: 820 }, { d: "Tue", v: 1120 }, { d: "Wed", v: 980 },

@@ -372,7 +372,7 @@ export function CreateRole({
           ) : undefined
         }
       />
-      <Card className="mx-auto max-w-xl p-6">
+      <Card className="mx-auto max-w-xl px-2 py-4 sm:p-6">
         <div className="text-[12px] font-semibold uppercase tracking-wide text-faint">Creation method</div>
         <div className="mt-2.5 grid grid-cols-3 gap-1 md:gap-2">
           {METHODS.map((m) => {

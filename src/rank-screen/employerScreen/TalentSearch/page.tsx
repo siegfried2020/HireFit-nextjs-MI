@@ -1,7 +1,9 @@
-import { useState} from "react";
+import { useState } from "react";
 import {
   Bookmark,
-  Search as SearchIcon
+  Search as SearchIcon,
+  SlidersHorizontal,
+  X,
 } from "lucide-react";
 import {
   Card,
@@ -14,47 +16,69 @@ import { InlineHint, PageHead } from "../EmployerShared/EmployerShared";
 import { FilterGroup, HARD_FILTERS, SOFT_FILTERS } from "./FilterGroup";
 import { ResultCard, SearchSkeleton } from "./ResultCard";
 
-
-  
 export function TalentSearch({ go }: { go: (r: string) => void }) {
-    const emp = useEmployer();
-    const [searching, setSearching] = useState(false);
-    const [highOnly, setHighOnly] = useState(false);
-    const [national, setNational] = useState(true);
-    const hasRole = emp.publishedRoles.length > 0;
-    const role = emp.activeRole;
-  
-    const results = emp.candidates.filter(
-      (c) => (!highOnly || c.conf === "High") && (!national || c.national),
-    );
-  
-    const runSearch = () => {
-      if (!hasRole) return;
-      setSearching(true);
-      setTimeout(() => {
-        setSearching(false);
-        emp.setSearchDone(true);
-      }, 900);
-    };
-  
-    const clearFilters = () => {
-      setHighOnly(false);
-      setNational(false);
-      emp.setSearchDone(false);
-    };
-  
-    return (
-      <div className="flex h-full flex-col space-y-4">
-        <PageHead
-          eyebrow="Evidence-first"
-          title="Talent Search"
-          sub={hasRole ? `Matching against ${role?.title}` : "Publish a role to start matching"}
-        />
-  
-        <div className="grid min-h-0 flex-1 grid-cols-[268px_1fr] gap-4 max-lg:grid-cols-1">
-          {/* filters / criteria */}
-          <Card className="flex h-full flex-col overflow-hidden p-0 max-lg:hidden">
-            {/* sticky action area — visible without scrolling */}
+  const emp = useEmployer();
+  const [searching, setSearching] = useState(false);
+  const [highOnly, setHighOnly] = useState(false);
+  const [national, setNational] = useState(true);
+  const [showFilters, setShowFilters] = useState(true);
+  const hasRole = emp.publishedRoles.length > 0;
+  const role = emp.activeRole;
+
+  const results = emp.candidates.filter(
+    (c) => (!highOnly || c.conf === "High") && (!national || c.national),
+  );
+
+  const runSearch = () => {
+    if (!hasRole) return;
+    setSearching(true);
+    setTimeout(() => {
+      setSearching(false);
+      emp.setSearchDone(true);
+    }, 900);
+  };
+
+  const clearFilters = () => {
+    setHighOnly(false);
+    setNational(false);
+    emp.setSearchDone(false);
+  };
+
+  return (
+    <div className="flex h-full flex-col space-y-4">
+      <PageHead
+        eyebrow="Evidence-first"
+        title="Talent Search"
+        sub={hasRole ? `Matching against ${role?.title}` : "Publish a role to start matching"}
+        actions={
+          <Button
+            variant={showFilters ? "secondary" : "primary"}
+            onClick={() => setShowFilters((v) => !v)}
+            className="w-full sm:w-auto"
+          >
+            {showFilters ? (
+              <>
+                <X className="size-4" /> Hide filter
+              </>
+            ) : (
+              <>
+                <SlidersHorizontal className="size-4" /> Filter
+              </>
+            )}
+          </Button>
+        }
+      />
+
+      <div
+        className={
+          showFilters
+            ? "grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-[268px_1fr]"
+            : "flex min-h-0 flex-1 flex-col"
+        }
+      >
+        {/* filters / criteria */}
+        {showFilters && (
+          <Card className="flex flex-col overflow-hidden p-0">
             <div className="space-y-2.5 border-b border-line bg-raised/60 p-3.5">
               <div>
                 <div className="mb-1 text-[11.5px] font-semibold uppercase tracking-wide text-faint">Role</div>
@@ -93,10 +117,8 @@ export function TalentSearch({ go }: { go: (r: string) => void }) {
                 </button>
               )}
             </div>
-  
-            {/* internally scrolling filter body */}
-            <div className="min-h-0 flex-1 overflow-y-auto p-3.5">
-              {/* Hard Filters */}
+
+            <div className="p-3.5">
               <div className="mb-3 flex items-center gap-1.5">
                 <div className="h-2 w-2 rounded-full bg-[#b5443a]" />
                 <span className="text-[11.5px] font-bold uppercase tracking-wider text-ink">Hard Filters</span>
@@ -114,8 +136,7 @@ export function TalentSearch({ go }: { go: (r: string) => void }) {
                   </label>
                 </div>
               </div>
-  
-              {/* Soft Criteria */}
+
               <div className="mb-3 mt-5 flex items-center gap-1.5">
                 <div className="h-2 w-2 rounded-full bg-brand-500" />
                 <span className="text-[11.5px] font-bold uppercase tracking-wider text-ink">Soft Criteria</span>
@@ -135,55 +156,55 @@ export function TalentSearch({ go }: { go: (r: string) => void }) {
               </div>
             </div>
           </Card>
-  
-          {/* results area */}
-          <div className="flex min-h-0 flex-col">
-            <div className="mb-3 flex items-center justify-between gap-4">
-              <span className="text-[13px] text-muted">
-                {emp.searchDone && !searching ? (
-                  <><span className="font-bold text-ink">{results.length}</span> candidates matched</>
-                ) : (
-                  "Results"
-                )}
-              </span>
-              <select className="rounded-[8px] border border-line bg-surface px-2.5 py-1.5 text-[13px] font-medium text-ink-soft outline-none" disabled={!emp.searchDone}>
-                <option>Sort: Match</option>
-                <option>Sort: Confidence</option>
-              </select>
-            </div>
-  
-            <div className="min-h-0 flex-1 overflow-y-auto pr-0.5">
-              {searching ? (
-                <SearchSkeleton />
-              ) : !emp.searchDone ? (
-                <InlineHint>
-                  {hasRole
-                    ? "Choose a role and search criteria, then run Search."
-                    : "Publish a role first — then choose criteria and search verified talent."}
-                </InlineHint>
-              ) : results.length === 0 ? (
-                <div className="rounded-[10px] border border-dashed border-line bg-raised/60 px-4 py-8 text-center">
-                  <div className="text-[14px] font-semibold text-ink">No candidates match these criteria</div>
-                  <div className="mt-3 flex justify-center gap-2">
-                    <Button variant="secondary" size="sm" onClick={clearFilters}>
-                      Clear filters
-                    </Button>
-                    <Button variant="secondary" size="sm" onClick={() => go("job-dna")}>
-                      Edit criteria
-                    </Button>
-                  </div>
-                </div>
+        )}
+
+        {/* results area */}
+        <div className="flex min-h-0 flex-col">
+          <div className="mb-3 flex items-center justify-between gap-4">
+            <span className="text-[13px] text-muted">
+              {emp.searchDone && !searching ? (
+                <><span className="font-bold text-ink">{results.length}</span> candidates matched</>
               ) : (
-                <div className="space-y-3">
-                  {results.map((c) => (
-                    <ResultCard key={c.id} c={c} go={go} />
-                  ))}
-                </div>
+                "Results"
               )}
-            </div>
+            </span>
+            <select className="rounded-[8px] border border-line bg-surface px-2.5 py-1.5 text-[13px] font-medium text-ink-soft outline-none" disabled={!emp.searchDone}>
+              <option>Sort: Match</option>
+              <option>Sort: Confidence</option>
+            </select>
+          </div>
+
+          <div className="min-h-0 flex-1 overflow-y-auto pr-0.5">
+            {searching ? (
+              <SearchSkeleton />
+            ) : !emp.searchDone ? (
+              <InlineHint>
+                {hasRole
+                  ? "Choose a role and search criteria, then run Search."
+                  : "Publish a role first — then choose criteria and search verified talent."}
+              </InlineHint>
+            ) : results.length === 0 ? (
+              <div className="rounded-[10px] border border-dashed border-line bg-raised/60 px-4 py-8 text-center">
+                <div className="text-[14px] font-semibold text-ink">No candidates match these criteria</div>
+                <div className="mt-3 flex justify-center gap-2">
+                  <Button variant="secondary" size="sm" onClick={clearFilters}>
+                    Clear filters
+                  </Button>
+                  <Button variant="secondary" size="sm" onClick={() => go("job-dna")}>
+                    Edit criteria
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {results.map((c) => (
+                  <ResultCard key={c.id} c={c} go={go} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
-    );
+    </div>
+  );
 }
-  
