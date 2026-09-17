@@ -117,7 +117,7 @@ function ProfileCard({ data, isNew }: { data: ProfileIdentity; isNew: boolean })
     <Card className="p-5">
       <div className="mb-4 flex flex-col gap-3 min-[450px]:flex-row min-[450px]:items-center min-[450px]:justify-between">
         <h3 className="text-[15px] font-bold text-ink">Professional Identity</h3>
-        <Button size="sm" variant="ghost" className="w-full min-[450px]:w-auto">
+        <Button size="sm" variant="secondary" className="w-full min-[450px]:w-auto">
           Edit
         </Button>
       </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChevronRight } from "lucide-react";
 import { cx } from "../../../components/primitives";
 import type { Skill, ProfileIdentity, TargetRole, DnaTab, ActiveFlow, EvidenceItem } from "./types";
 import { DNA_TABS } from "./types";
@@ -183,23 +184,33 @@ export function TalentDNA() {
       </div>
 
       {/* Tab navigation */}
-      <div className="mb-6 -mx-1 overflow-x-auto overscroll-x-contain border-b border-line [-webkit-overflow-scrolling:touch]">
-        <div className="flex min-w-max px-1">
-          {DNA_TABS.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
-              className={cx(
-                "relative shrink-0 whitespace-nowrap px-4 py-2.5 text-[13.5px] font-semibold transition-colors",
-                tab === t.id
-                  ? "text-brand-700 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-brand-500"
-                  : "text-muted hover:text-ink",
-              )}
-            >
-              {t.label}
-            </button>
-          ))}
+      <div className="mb-2 flex items-center justify-end gap-1.5 text-[11px] font-medium text-faint min-[450px]:hidden">
+        <span>Swipe tabs to see more</span>
+        <ChevronRight className="size-3.5" />
+      </div>
+      <div className="relative mb-6">
+        <div className="overflow-x-auto overscroll-x-contain border-b border-line [-webkit-overflow-scrolling:touch]">
+          <div className="flex min-w-max px-1">
+            {DNA_TABS.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={cx(
+                  "relative shrink-0 whitespace-nowrap px-4 py-2.5 text-[13.5px] font-semibold transition-colors",
+                  tab === t.id
+                    ? "text-brand-700 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-brand-500"
+                    : "text-muted hover:text-ink",
+                )}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
         </div>
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-canvas to-transparent min-[450px]:hidden"
+          aria-hidden
+        />
       </div>
 
       {tab === "overview" && (

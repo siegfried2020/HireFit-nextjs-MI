@@ -1,3 +1,4 @@
+import { ChevronRight } from "lucide-react";
 import {
   Card,
   StatusBadge,
@@ -79,24 +80,34 @@ export function Settings({
       <div>
         <SectionTitle title="Consent Centre" />
         <Card className="overflow-hidden">
-          <div className="grid grid-cols-[1fr_auto_auto] gap-4 border-b border-line bg-raised px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-faint">
-            <div>Purpose</div>
-            <div>Status</div>
-            <div>Date</div>
+          <div className="flex items-center justify-end gap-1.5 border-b border-line bg-raised px-4 py-1.5 text-[11px] font-medium text-faint min-[450px]:hidden">
+            <span>Swipe to see more</span>
+            <ChevronRight className="size-3.5" />
           </div>
-          <div className="divide-y divide-line-soft">
-            {CONSENT_ITEMS.map((item) => (
-              <div key={item.purpose} className="grid grid-cols-[1fr_auto_auto] items-start gap-4 px-5 py-4">
-                <div>
-                  <div className="text-[13.5px] font-semibold text-ink">{item.purpose}</div>
-                  <div className="mt-0.5 text-[12px] text-muted">{item.desc}</div>
-                </div>
-                <StatusBadge tone={item.status === "Active" ? "verified" : "neutral"}>
-                  {item.status}
-                </StatusBadge>
-                <div className="whitespace-nowrap text-[12.5px] text-faint">{item.date}</div>
+          <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+            <div className="min-w-[560px]">
+              <div className="grid grid-cols-[1.4fr_0.7fr_0.7fr] gap-4 border-b border-line bg-raised px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-faint">
+                <div>Purpose</div>
+                <div>Status</div>
+                <div>Date</div>
               </div>
-            ))}
+              <div className="divide-y divide-line-soft">
+                {CONSENT_ITEMS.map((item) => (
+                  <div key={item.purpose} className="grid grid-cols-[1.4fr_0.7fr_0.7fr] items-start gap-4 px-5 py-4">
+                    <div className="min-w-0">
+                      <div className="text-[13.5px] font-semibold text-ink">{item.purpose}</div>
+                      <div className="mt-0.5 text-[12px] text-muted">{item.desc}</div>
+                    </div>
+                    <div>
+                      <StatusBadge tone={item.status === "Active" ? "verified" : "neutral"}>
+                        {item.status}
+                      </StatusBadge>
+                    </div>
+                    <div className="whitespace-nowrap text-[12.5px] text-faint">{item.date}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
           <div className="border-t border-line px-5 py-3 text-[12px] text-faint">
             Policy version 2.1 &middot;{" "}

@@ -44,15 +44,29 @@ export function Evidence({ skills }: { skills: Skill[] }) {
               {byType[type].map((e, i) => {
                 const ev = EV_STATE[e.state];
                 return (
-                  <div key={i} className="flex items-center gap-4 px-5 py-3.5">
-                    <span className={cx("shrink-0 rounded-full px-2.5 py-0.5 text-[11.5px] font-semibold", EVIDENCE_COLORS[e.type] ?? "bg-line text-muted")}>
-                      {e.type}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="truncate text-[13.5px] font-semibold text-ink">{e.label}</div>
-                      <div className="text-[12px] text-muted">Skill: {e.skillName} · {e.date}</div>
+                  <div
+                    key={i}
+                    className="flex flex-col gap-2.5 px-4 py-3.5 sm:flex-row sm:items-center sm:gap-4 sm:px-5"
+                  >
+                    <div className="flex min-w-0 flex-1 items-start gap-3">
+                      <span
+                        className={cx(
+                          "shrink-0 rounded-full px-2.5 py-0.5 text-[11.5px] font-semibold",
+                          EVIDENCE_COLORS[e.type] ?? "bg-line text-muted",
+                        )}
+                      >
+                        {e.type}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[13.5px] font-semibold leading-snug text-ink">{e.label}</div>
+                        <div className="mt-0.5 text-[12px] text-muted">
+                          Skill: {e.skillName} · {e.date}
+                        </div>
+                      </div>
                     </div>
-                    <StatusBadge tone={ev.tone}>{ev.label}</StatusBadge>
+                    <div className="shrink-0 self-start sm:self-auto">
+                      <StatusBadge tone={ev.tone}>{ev.label}</StatusBadge>
+                    </div>
                   </div>
                 );
               })}
