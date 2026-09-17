@@ -6,9 +6,9 @@ import {
   useAuthNav,
 } from "@/app/auth/roleSelection/RoleSelection";
 import { useSession } from "@/context/SessionContext";
-import { Login } from "../roleSelection/Shared/login/page";
-import { Forgot, Reset } from "../roleSelection/Shared/ForgotResetPass/page";
-import { Signup } from "../roleSelection/Shared/signup/page";
+import { Login } from "../roleSelection/Shared/login/login";
+import { Forgot, Reset } from "../roleSelection/Shared/ForgotResetPass/ForgotResetPass";
+import { Signup } from "../roleSelection/Shared/signup/signup";
 
 type Step =
   | { k: "login" }

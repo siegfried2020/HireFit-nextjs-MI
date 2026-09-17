@@ -1,4 +1,4 @@
-
+"use client"
 import { ArrowLeft } from "lucide-react";
 import { type Portal } from "../../../../../components/rankShellPages";
 import { AuthLayout, RoleContext } from "../../Authlayouts/AuthLayouts";

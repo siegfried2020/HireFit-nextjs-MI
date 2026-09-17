@@ -6,10 +6,10 @@ import {
   useAuthNav,
 } from "@/app/auth/roleSelection/RoleSelection";
 import { useSession } from "@/context/SessionContext";
-import { Login } from "../roleSelection/Shared/login/page";
-import { Forgot, Reset } from "../roleSelection/Shared/ForgotResetPass/page";
-import { InviteAccept } from "../roleSelection/Shared/InviteAccept/page";
-import { Signup } from "../roleSelection/Shared/signup/page";
+import { Login } from "../roleSelection/Shared/login/login";
+import { Forgot, Reset } from "../roleSelection/Shared/ForgotResetPass/ForgotResetPass";
+import { InviteAccept } from "../roleSelection/Shared/InviteAccept/InviteAccept";
+import { Signup } from "../roleSelection/Shared/signup/signup";
 
 type Step =
   | { k: "login" }

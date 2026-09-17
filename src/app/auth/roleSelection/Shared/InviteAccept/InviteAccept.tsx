@@ -1,3 +1,4 @@
+"use client"
 import { ArrowLeft, ArrowRight, BadgeCheck, Lock, ShieldCheck } from "lucide-react";
 import { AuthLayout } from "../../Authlayouts/AuthLayouts";
 import { Field } from "../Field&Segmented";

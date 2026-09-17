@@ -8,7 +8,7 @@ import {
 import { Button, cx } from "../../../../../components/primitives";
 import { LoginPrompt, StepHead } from "../Roles&Sessions";
 import { Field, Segmented } from "../Field&Segmented";
-import { DoneStep, VerifyStep } from "../verification/page";
+import { DoneStep, VerifyStep } from "../verification/verification";
 
 export function CandidateSignup({ index, next, onComplete, onLogin }: { index: number; next: () => void; onComplete: () => void; onLogin: () => void }) {
     const [contact, setContact] = useState("Email");

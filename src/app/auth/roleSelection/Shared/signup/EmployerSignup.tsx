@@ -14,7 +14,7 @@ import {
   Check,
   type LucideIcon,
 } from "lucide-react";
-import { DoneStep, VerifyStep } from "../verification/page";
+import { DoneStep, VerifyStep } from "../verification/verification";
 
 
 export function EmployerSignup({ index, next, onComplete, onLogin }: { index: number; next: () => void; onComplete: () => void; onLogin: () => void }) {
